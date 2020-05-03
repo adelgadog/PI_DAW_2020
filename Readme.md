@@ -8,7 +8,8 @@ Aplicación Web que permite reservar online entradas para las salas de un cine e
 
 ### Despliegue
 
-La aplicación será desplegada en una maquina virtual Ubuntu alojada en un servidor AWS. De igual forma la aplicación puede ser desplegada de manera local mediante un servidor XAMP.
+La aplicación será desplegada en una máquina virtual Ubuntu alojada en un servidor AWS. 
+De igual forma la aplicación puede ser desplegada de manera local mediante un servidor XAMP.
 
 _ _ _
 
