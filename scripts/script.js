@@ -1,37 +1,38 @@
 $(document).ready(function () { 
 
     //////////////////////////////////////////////////////////////////////////
-
-
-
+    //
+    //  Función de escucha del botón para abrir el modal de Log-In.
+    //  Llama a la función Chequear() si todos los campos estan completos.
+    //
     ////////////////////////////////////////////////////////////////////////// 
 
    $(".b_login").click(function(){  
         if ( $("#correo_L").val()=='' || $("#password_L").val()=='') {
-            alert("Responde Bellaco");
+            alert("Necesita rellenar todos los campos.");
         } else {           
             Chequear($("#correo_L").val(), $("#password_L").val(), $('#remember').prop('checked'));            
         }
     });
     
     //////////////////////////////////////////////////////////////////////////
-
-
-
+    //
+    //  Función de escucha del botón para abrir el modal de Registro
+    //
     //////////////////////////////////////////////////////////////////////////
 
     $("#b_registro").click(function(){  
         if ($("#Pass_R").val().length<8) {
-            alert("La contraseña debe ser mayor de 8 caracteres");
+            alert("La contraseña debe ser mayor de 8 caracteres.");
         } else {          
             Registrar($("#Usuario_R").val(), $("#Pass_R").val(), $("#Mail_R").val());
         }
     });
     
     //////////////////////////////////////////////////////////////////////////
-
-
-
+    //
+    //  Funcion de desconexión de usuario. Borra la Cookie guardada regresa a inicio
+    //
     //////////////////////////////////////////////////////////////////////////
 
     $("#salir").click(function(){  
@@ -40,9 +41,12 @@ $(document).ready(function () {
     });
     
     //////////////////////////////////////////////////////////////////////////
-
-
-
+    //
+    //  Funcion de Log-In. Uso Ajax para la revisión en PHP sobre la BBDD.
+    //  Si el usuario es correcto genera una Cookie para mantener el registro.
+    //  Si has elegilo el check Recuerdame, la Cookie se guardara por 1 mes,
+    //   en caso contrario 1 hora.
+    //
     //////////////////////////////////////////////////////////////////////////
 
     function Chequear(User, Pass, tiempo){
@@ -73,9 +77,10 @@ $(document).ready(function () {
     }
     
     //////////////////////////////////////////////////////////////////////////
-
-
-
+    //
+    //  Función para registrar un nuevo usuario en la BBDD. Se realiza mediante
+    //  Ajax.
+    //
     //////////////////////////////////////////////////////////////////////////
 
     function Registrar(User, Pass, Mail){
@@ -97,9 +102,10 @@ $(document).ready(function () {
     }
 
     //////////////////////////////////////////////////////////////////////////
-
-
-    
+    //
+    //  Funcion para recibir la lista de todas las peliculas de la BBDD 
+    //  mediante Ajax. En la ultima revision decidi no usarla.
+    //
     //////////////////////////////////////////////////////////////////////////
 
     function carga_peliculas(){
@@ -118,9 +124,10 @@ $(document).ready(function () {
     }
 
     //////////////////////////////////////////////////////////////////////////
-
-
-    
+    //
+    //  Funcion para recibir la lista de todas las proyecciones de la BBDD 
+    //  mediante Ajax. En la ultima revision decidi no usarla.
+    //
     //////////////////////////////////////////////////////////////////////////
     
     function carga_proyecciones(){
@@ -137,59 +144,10 @@ $(document).ready(function () {
             }
         }); 
     }
-
     //////////////////////////////////////////////////////////////////////////
-
-
-    
+    //
+    //          FIN DEL ARCHIVO SCRIPTS
+    //
     //////////////////////////////////////////////////////////////////////////
-
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-        return -1;
-      }
-
-      //////////////////////////////////////////////////////////////////////////
-  
-  
-      
-      //////////////////////////////////////////////////////////////////////////
-
-
-
-     /* $('.btnNext').click(function(){
-          let tabactiva= $('#menuTabs > li').find('.active');
-          //alert(tabactiva);
-          tabactiva.next('nav-link').addClass('chorra').tab('show');
-          //tabactiva.closest("li").find('#tabForm').addClass("active show");
-      });
-      
-        $('.btnPrevious').click(function(){
-        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-      });/*/
-
-
-/*
-        $('#prevtab').on('click', function() {
-            var $tabs = $('#menuTabs li');
-            $tabs.filter('.active').prev('li').find('a[data-toggle="tab"]').tab('show');
-        });
-        $('.btnNext').on('click', function() {
-            //alert("hola");
-            let $tabs = $('#menuTabs > li > a').filter('.active');
-            $tabs.addClass("chorra");
-            $tabs.next('li').addClass("chorra");
-        });*/
 
 });

@@ -1,6 +1,13 @@
 <?php
     class Pelicula {
         
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  Objeto Pelicula.
+        //
+        //////////////////////////////////////////////////////////////////////////
+        
         public $id;
         public $Titulo;
         public $Pais;
@@ -29,17 +36,5 @@
             $this->Cartel = $cartel;
             $this->Trailer = $trailer;
         }
-
-
-        /*
-        public function Mostrar_nombre(){
-            return $this->nombre;
-        }
-        public function Mostrar_mail(){
-            return $this->mail;
-        }
-        public function Mostrar_admin(){
-            return $this->admin;
-        }*/
     }
 ?>

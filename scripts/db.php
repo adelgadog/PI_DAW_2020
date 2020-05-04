@@ -1,11 +1,18 @@
 <?php
+
+    //////////////////////////////////////////////////////////////////////////
+    //
+    //  Class que contiene todas las funciones de interaccion con la BBDD        
+    //
+    //////////////////////////////////////////////////////////////////////////
+
     require_once 'conexion.php';
     class DB extends Conexion{
 
         //////////////////////////////////////////////////////////////////////////
-        /*
-        Función de ejecución de las sentencias SQL          
-        */
+        //
+        //  Función de ejecución de las sentencias SQL          
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Ejecutar($sql){
@@ -17,9 +24,10 @@
          }
 
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para obtener un usuario ya registrado de la BBDD
+        //  Retorna un objeto Usuario.
+        //
         //////////////////////////////////////////////////////////////////////////        
 
         public static function Get_Usuario($mail, $pass){
@@ -36,9 +44,9 @@
         }
 
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para registrar un nuevo usuario en la BBDD
+        //
         //////////////////////////////////////////////////////////////////////////        
 
         public static function Set_Usuario($usr, $pass, $mail){            
@@ -55,9 +63,9 @@
         }
 
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para obtener la lista de peliculas almacenadas en la BBDD
+        //
         //////////////////////////////////////////////////////////////////////////
 
         public static function Get_Peliculas(){
@@ -73,9 +81,10 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para obtener las valoraciones de cada cada pelicula.
+        //  Retorna un array de objetos Peliculas.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Get_Valoraciones($peliculas){
@@ -98,9 +107,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para obtener las proyecciones que se encuentran en la BBDD.
+        //
         //////////////////////////////////////////////////////////////////////////
 
         public static function Get_Proyeccion(){
@@ -117,9 +126,10 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para recopilar los distintos datos de cada proyección.
+        //  Retorna un array de objetos Proyeccion.
+        //
         //////////////////////////////////////////////////////////////////////////
 
         public static function Get_Datos($proyecciones){
@@ -154,9 +164,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para obtener las tarifas que se encuentran en la BBDD.
+        //
         //////////////////////////////////////////////////////////////////////////
 
         public static function Get_Tarifas(){
@@ -171,9 +181,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función para registrar en la BBDD una reserva realizada por un usuario.
+        //
         //////////////////////////////////////////////////////////////////////////
 
         public static function Set_Reserva($id, $butacas, $proyeccion){        

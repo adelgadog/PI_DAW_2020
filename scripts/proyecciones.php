@@ -1,5 +1,12 @@
 <?php
-    class Proyeccion {
+    class Proyeccion {        
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  Objeto Proyección.
+        //
+        //////////////////////////////////////////////////////////////////////////
+
         public $id;
         public $Sala;
         public $idPelicula;
@@ -21,17 +28,5 @@
             $this->Precio = $Precio;
             $this->Disponibles = $Disponibles;
         }
-
-
-        /*
-        public function Mostrar_nombre(){
-            return $this->nombre;
-        }
-        public function Mostrar_mail(){
-            return $this->mail;
-        }
-        public function Mostrar_admin(){
-            return $this->admin;
-        }*/
     }
 ?>
