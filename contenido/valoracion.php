@@ -7,11 +7,12 @@
         } else {
             $admin=false;
         }        
-    }   
-    if(!isset($array_peliculas) || !isset($array_proyecciones)) {
-        require_once 'scripts/funciones.php';
-        $array_peliculas=Get_Peliculas();
-        $array_proyecciones=Get_Proyeccion();
+    }else{        
+        header("Location: ../index.php");
+    }
+    if(!isset($array_reservas)) {
+        require_once '../scripts/funciones.php';
+        $array_reservas=Get_reservas($array_User->id); 
     }  
 ?>
 
@@ -23,7 +24,7 @@
     <link rel="shortcut icon" type="favicon/ico" href="../img/favicon2.ico">
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery--3.4.1.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../scripts/script.js"></script>    
@@ -55,7 +56,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="reservas.php" class="nav-link " >Reserar</a>
+                            <a href="reservas.php" class="nav-link " >Reservar</a>
                         </li>
                         <?php
                         if ($Registrado){
@@ -68,7 +69,7 @@
                         if ($admin){
                         ?>
                             <li class="nav-item">
-                                <a href="" class="nav-link">Administrar</a>
+                                <a href="pAdmin.php" class="nav-link">Administrar</a>
                             </li>                   
                         <?php
                         }
@@ -103,119 +104,52 @@
 
         <section class="row justify-content-center seccion">
             <div class="col bg-white pt-4">
-                <h3 class="text-center mt-5">El Cine</h3>
-                <h3 class="text-center mt-5">Valorar</h3>
-                       
+                <h3 class="text-center mt-5">Valora las Peliculas que has visto.</h3>
+                <div class="cajon_peliculas">
+                    <?php
+                        if ($array_reservas!=-1) {     
+                            
+                            foreach ($array_reservas as $reserva) {
+                        ?><div class="container"><div class="row justify-content-center">
+                        <div class="card mb-3" style="width: 45%;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="https://m.media-amazon.com/images/<?php echo $reserva->cartel; ?>" id="imgTarjeta" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8 ">
+                                    <div class="card-body ml-2 nota_cuerpo" style="min-height: 13em;">
+                                        <h5 class="card-title"><?php echo $reserva->titulo; ?></h5>
+                                        <h5 class="card-subtitle mb-3">Hora: <?php echo $reserva->hora; ?>
+                                        <div class="container mt-4 ml-md-3">
+                                            <p class="card-text ">Nota Actual: <?php if($reserva->nota!=-1){ echo $reserva->nota;}else{echo "N-A";} ?></p>
+                                            <div class="slidecontainer">
+                                                <input type="range" min="1" max="10" step="0.5" class="rango_nota custom-range" id="rango_nota" value='<?php if($reserva->nota!=-1){ echo $reserva->nota;}else{echo 5;} ?>'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="anuncio" id="anuncio"><p class="card-text ">Pon o cambia tu nota.</p></div>
+                                        <div class="modificar oculto" id="modificar"> <span class="card-text">Nota:</span> <span class="muestra_nota" id="muestra_nota"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div></div></div>
+                    <?php
+                            }
+                                           
+                    } else {
+                        ?>
+                    
+                        <h3 class="text-center mt-5">Aún no ha realizado ninguna reserva</h3>
+                        <?php
+                    }
+                    ?>
+                </div>           
 
             </div>
         </section>
 
-        <footer class="page-footer  bg-dark">             
-        <div class=" row bg-dark text-white justify-content-end">
-                    <div class="d-flex justify-content-end mt-2">
-                        <nav class="navbar navbar-expand-md navbar-dark justify-content-end bg-dark">
-                            <div class="collapse navbar-collapse" id="navbarText">
-                                <ul class="navbar-nav mr-3">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Contactanos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Ubicación</a>
-                                </li>
-                                </ul>
-                            </div>                        
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </nav>
-                    </div>
-                </div>         
-                
-                <div class=" row text-center  bg-dark text-white ">
-                    <div class="mx-auto mb-2">
-                    <span>© 2020 Copyright:</span>    
-                    <span>Andrés Delgado</span></div>
-                </div> 
-        </footer>
-    </div>
-
-
-
-
-    <article class="modal fade" id="login">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Inicia sesión</h5>
-                    <span data-dismiss="modal" class="close">X</span>
-                </div>
-                <form method="post" class="form-signin" id="inicio">
-                    <div class="modal-body">
-                        <div class="form-label-group">
-                            <label for="correo" class="col-form-label">Correo electrónico:</label>
-                            <input type="email" id="correo_L" name="correo" class="form-control" placeholder="Correo electrónico" autofocus required>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label for="password" class="col-form-label">Contraseña:</label>
-                            <input type="password" id="password_L" name="password" class="form-control" placeholder="Contraseña" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="remember" class="col-form-label">Recuerdame:</label>
-                            <input type="checkbox" name="remember" id="remember">
-                        </div>
-                    </div>
-                    <div class="modal-footer">                          
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" name="entrar" id="b_login" class="btn btn-success b_login">Entrar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </article>
-
-        
-    <article class="modal fade" id="registrar">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Registrarse</h5>
-                    <span data-dismiss="modal" class="close">X</span>
-                </div>
-
-                <form method="post" class="form-signin ">
-                    <div class="modal-body">
-                        
-                        <div class="form-label-group">
-                            <label for="nombre" class="col-form-label">Nombre:</label>
-                            <input type="text" id="Usuario_R" name="nombre" class="form-control" placeholder="Nombre" autofocus>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label for="mail" class="col-form-label">Correo electrónico:</label>
-                            <input type="email" id="Mail_R" name="correo" class="form-control" placeholder="Dirección de correo electrónico" autofocus required>
-                        </div>
-
-                        <div class="form-label-group">                            
-                            <label for="psw1" class="col-form-label">Contraseña:</label>
-                            <input type="password" id="Pass_R" name="password" class="form-control" placeholder="Contraseña">
-                        </div>
-
-                        <div class="form-label-group">        
-                            <label for="psw2" class="col-form-label">Repita Contraseña:</label>
-                            <input type="password" id="psw2" name="password" class="form-control" placeholder="Contraseña">
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer text-right">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" name="entrar" id="b_registro" class="btn btn-primary b_registro">Registrarse</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </article>
+        <?php include 'footer.php';?>
 
 </body>
 </html>

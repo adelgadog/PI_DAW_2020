@@ -16,8 +16,8 @@ body{
 }
 @media screen and (min-width: 900px) {
 	.seccion{		
-		padding-left: 5%;
-		padding-right: 5%;
+		padding-left: 7%;
+		padding-right: 7%;
 	}
 }
 #logo{
@@ -54,6 +54,9 @@ max-width: 315px;
 margin: 2em;
 border-radius: 10px;
 display: inline-block;
+}
+.datos{
+	height: 100%;
 }
 
 .modal_peliculas {
@@ -104,4 +107,21 @@ overflow: hidden;
 }
 .pie{
 	width: 100%;
+}
+.fondo{
+	background-image: url("../img/bg3.png");
+	background-size: cover; 
+	background-position: center;
+}
+#mapa{
+	width: 450px;
+	height: 350px;
+}
+
+.nota_cuerpo{
+	min-height: 5rem;
+}
+
+.oculto{
+	display: none;
 }

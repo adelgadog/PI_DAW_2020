@@ -24,11 +24,61 @@ $(document).ready(function () {
     $("#b_registro").click(function(){  
         if ($("#Pass_R").val().length<8) {
             alert("La contraseña debe ser mayor de 8 caracteres.");
-        } else {          
-            Registrar($("#Usuario_R").val(), $("#Pass_R").val(), $("#Mail_R").val());
+        } else if ($("#Pass_R").val()!=$("#Pass_R2").val()){          
+            alert("Las contraseñas deben coincidir.");
+        } else {
+            Chequear_R($("#Usuario_R").val(), $("#Pass_R").val(), $("#Mail_R").val());                   
         }
-    });
+    });   
+
+    //////////////////////////////////////////////////////////////////////////
+    //
+    //  
+    //  
+    //
+    //////////////////////////////////////////////////////////////////////////
     
+    document.getElementsByClassName("rango_nota").oninput = function(){
+        $("#anuncio").attr('class','oculto');
+        $("#modificar").attr('class','modificar');
+        document.getElementById("muestra_nota").innerHTML=this.value;
+    
+    };
+    
+    //////////////////////////////////////////////////////////////////////////
+    //
+    //  Funcion de Log-In. Uso Ajax para la revisión en PHP sobre la BBDD.
+    //  Si el usuario es correcto genera una Cookie para mantener el registro.
+    //  Si has elegilo el check Recuerdame, la Cookie se guardara por 1 mes,
+    //   en caso contrario 1 hora.
+    //
+    //////////////////////////////////////////////////////////////////////////
+
+   function Chequear_R(User, Pass, Mail){  
+        //alert("vamos");
+        $.ajax({
+            type: "post",
+            url: "../scripts/funciones.php",
+            data: {mail:Mail,funcion:"funcion6"},
+            error(xhr,status,error){
+                console.log("nope_Registro_1");
+                alert("fallo");
+            },
+            success: function (jsonStr) {
+                //alert("entra");
+                console.log("entra");
+                console.log(jsonStr);
+                let json = JSON.parse(jsonStr);
+                if (jsonStr=="1") {
+                    console.log("falso");
+                    alert("Ese E-Mail ya esta registrado."); 
+                }else{
+                    console.log("cierto");
+                    Registrar(User, Pass, Mail);   
+                }          
+            }
+        }); 
+    }
     //////////////////////////////////////////////////////////////////////////
     //
     //  Funcion de desconexión de usuario. Borra la Cookie guardada regresa a inicio
@@ -88,15 +138,18 @@ $(document).ready(function () {
             type: "post",
             url: "../scripts/funciones.php",
             data: {nombre:User,pass:Pass,mail:Mail,funcion:"funcion4"},
-            error(xhr,status,error){console.log("nope");
+            error(xhr,status,error){alert("nope");
             },
             success: function (jsonStr) {
-                let json = JSON.parse(jsonStr);
-                console.log(json);
-                if (json!=-1) {
-                    document.cookie ="usuario_cine="+JSON.stringify(json);
-                    window.location.reload(); 
-                }                
+                let d = new Date();
+                d.setTime(d.getTime() + 3600000);
+                var expira = "; expires="+d.toUTCString();
+                let json = JSON.parse(jsonStr);       
+                let cookie="usuario_cine="+JSON.stringify(json);
+                alert(cookie);
+                document.cookie ="usuario_cine="+JSON.stringify(json);
+                window.location.reload();
+                                
             }
         }); 
     }
@@ -144,6 +197,7 @@ $(document).ready(function () {
             }
         }); 
     }
+
     //////////////////////////////////////////////////////////////////////////
     //
     //          FIN DEL ARCHIVO SCRIPTS

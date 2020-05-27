@@ -45,21 +45,35 @@
 
         //////////////////////////////////////////////////////////////////////////
         //
+        //  
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////        
+
+        public static function revisa_mail($mail){
+            $sql = "SELECT * FROM usuario WHERE Mail='".$mail."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result->rowCount()>0) {    
+                return 1; 
+            } else {
+                return -1;
+            }         
+        }
+        //////////////////////////////////////////////////////////////////////////
+        //
         //  Función para registrar un nuevo usuario en la BBDD
         //
         //////////////////////////////////////////////////////////////////////////        
 
         public static function Set_Usuario($usr, $pass, $mail){            
-            $sql = "INSERT INTO `usuario`(`Nombre`, `Mail`, `Psw`,`Admin`) VALUES (?,?,?,?)";
-            $conn = new Conexion(); 
-            try {
-                $stmt= $conn->prepare($sql);
-                $stmt->execute([$usr, $mail, $pass, 0]);
-            } catch (PDOException $e) {
+            $sql = "INSERT INTO `usuario`(`Nombre`, `Mail`, `Psw`,`Admin`) VALUES ('".$usr."','".$mail."','".$pass."','0')";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {    
+                $usuario = DB::Get_Usuario($mail, $pass);  
+                return $usuario;
+            } else {
                 return -1;
-            }              
-            $usuario = Get_Usuario($mail, $pass);  
-            return $usuario;
+            }               
         }
 
         //////////////////////////////////////////////////////////////////////////
@@ -70,6 +84,24 @@
 
         public static function Get_Peliculas(){
             $sql = "SELECT * FROM pelicula";
+            $result = DB::Ejecutar($sql);  
+            if ($result->rowCount()>0) {    
+                $peliculas = $result->fetchAll(PDO::FETCH_ASSOC);  
+                $lista_peliculas=DB::Get_Valoraciones($peliculas);                
+                return $lista_peliculas;
+            } else {
+                return -1;
+            }         
+        }
+
+        //////////////////////////////////////////////////////////////////////////
+        //
+        // 
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function Get_Novedades(){
+            $sql = "SELECT * FROM pelicula ORDER BY idPelicula DESC LIMIT 3";
             $result = DB::Ejecutar($sql);  
             if ($result->rowCount()>0) {    
                 $peliculas = $result->fetchAll(PDO::FETCH_ASSOC);  
@@ -112,8 +144,8 @@
         //
         //////////////////////////////////////////////////////////////////////////
 
-        public static function Get_Proyeccion(){
-            $sql = "SELECT * FROM proyeccion";
+        public static function Get_Proyeccion($indice=""){
+            $sql = "SELECT * FROM proyeccion ".$indice;
             $result = DB::Ejecutar($sql);
             if ($result->rowCount()>0) {    
                 $proyecciones = $result->fetchAll(PDO::FETCH_ASSOC);                  
@@ -139,7 +171,7 @@
                 $sql = "SELECT * FROM sala WHERE idsala='".$proyeccion["IdSala"]."'";
                 $result = DB::Ejecutar($sql);                
                 $fila=$result->fetch(PDO::FETCH_ASSOC);  
-                $sala=$fila['Tipo'];
+                $sala=$fila['idsala'];
                 $butacas=$fila['Butacas'];
 
                 $sql = "SELECT * FROM tarifa WHERE idTipo='".$proyeccion["idTipo"]."'";
@@ -197,6 +229,306 @@
             }  
         }
         
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function Get_Reservas($iduser){
+            
+            $sql = "SELECT `reserva`.`idReserva`, `reserva`.`idUsuario`, `proyeccion`.`Fecha`, `proyeccion`.`Hora`, 
+            `pelicula`.`idPelicula`, `pelicula`.`Título`, `pelicula`.`Cartel` 
+            FROM `reserva` 
+            INNER JOIN `proyeccion` ON `reserva`.`idProyección`=`proyeccion`.`idProyeccion` 
+            INNER JOIN `pelicula` ON `proyeccion`.`idPelicula`=`pelicula`.`idPelicula`       
+            WHERE `reserva`.`idUsuario`='".$iduser."'";
+            $result = DB::Ejecutar($sql);
+            if ($result->rowCount()>0) {    
+                require_once 'valor.php';
+                $reservas = $result->fetchAll(PDO::FETCH_ASSOC);                  
+                foreach ($reservas as $reserva) {
+                    $voto = DB::Get_Valoracion($reserva["idUsuario"], $reserva["idPelicula"]);
+                    $valoracion = new Valoracion($reserva["idReserva"], $reserva["idUsuario"], $reserva["Hora"], $reserva["idPelicula"], $reserva["Fecha"], $reserva["Título"], $reserva["Cartel"], $voto);
+                    if (isset($valoraciones)) {                             
+                        $libre=true;                    
+                        foreach ($valoraciones as $valorada) {
+                            if ($valorada->pelicula==$valoracion->pelicula) {                                 
+                                $libre=false;
+                                if ($valorada->fecha>$valoracion->fecha) {
+                                    $valorada->Modificar_Fecha($valoracion->fecha);
+                                } 
+                            }                        
+                        }                         
+                        if($libre){
+                            $valoraciones[]= $valoracion;  
+                        } 
+                    } else {  
+                        $valoraciones[]= $valoracion;
+                    }
+                }
+                return $valoraciones;
+            } else {
+                return -1;
+            }         
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function Get_Valoracion($usuario, $pelicula){
+            $sql = "SELECT `Valoración` FROM `valoración` WHERE `idUsuario`='".$usuario."' AND `idPelicula`='".$pelicula."'";
+            $result = DB::Ejecutar($sql);
+            if ($result->rowCount()>0) {    
+                $valor = $result->fetch(PDO::FETCH_ASSOC)['Valoración'];
+                return $valor;
+            } else {
+                return -1;
+            }     
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function SetPelicula($año, $titulo, $pais, $genero, $duracion, $estreno, $calificacion, $sinopsis, $cartel, $video){
+            $sql = "INSERT INTO `pelicula`
+            (`Año`, `Título`, `País`, `Género`, `Duración`, `Fecha de Estreno`, `Calificación`, `Sinopsis`, `Cartel`, `Video`)
+            VALUES ('".$año."','".$titulo."','".$pais."','".$genero."','".$duracion."','".$estreno."','".$calificacion."','".$sinopsis."','".$cartel."','".$video."')";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function Get_Salas(){
+            $sql = "SELECT * FROM sala";
+            $result = DB::Ejecutar($sql);  
+            if ($result->rowCount()>0) {    
+                $sala = $result->fetchAll(PDO::FETCH_ASSOC);                
+                return $sala;
+            } else {
+                return -1;
+            }         
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function SetProyeccion($sala, $peli, $tarifa, $fecha, $hora){
+            $sql = "INSERT INTO `proyeccion`(`IdSala`, `idPelicula`, `idTipo`, `Fecha`, `Hora`)
+            VALUES ('".$sala."','".$peli."','".$tarifa."','".$fecha."','".$hora."')";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function SetTarifa($def, $desc, $precio){
+            $sql = "INSERT INTO `tarifa`(`Definicion`, `Descripcion`, `Precio`)
+            VALUES ('".$def."','".$desc."','".$precio."')";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function Dell_Pelicula($id){
+            $sql = "DELETE FROM `valoración` WHERE `idPelicula`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            $sql = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idPelicula`='".$id."')";
+            $result = DB::Ejecutar($sql);  
+            $sql = "DELETE FROM `proyeccion` WHERE `idPelicula`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            $sql = "DELETE FROM `pelicula` WHERE `idPelicula`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function updatePelicula($id, $año, $titulo, $pais, $genero, $duracion, $estreno, $calificacion, $sinopsis, $cartel, $video){
+            $sql ="UPDATE `pelicula` SET 
+            `Año`='".$año."',`Título`='".$titulo."',`País`='".$pais."',`Género`='".$genero."',
+            `Duración`='".$duracion."',`Fecha de Estreno`='".$estreno."',`Calificación`='".$calificacion."',
+            `Sinopsis`='".$sinopsis."',`Cartel`='".$cartel."',`Video`='".$video."' 
+            WHERE `idPelicula`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function Dell_Tarifa($id){
+            $sql1 = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idTipo`='".$id."')";
+            $result1 = DB::Ejecutar($sql);  
+            $sql2 = "DELETE FROM `proyeccion` WHERE `idTipo`='".$id."'";
+            $result2 = DB::Ejecutar($sql);  
+            $sql = "DELETE FROM `tarifa` WHERE `idTipo`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function updateTarifa($id, $def, $desc, $precio){
+            $sql ="UPDATE `tarifa` SET 
+            `Definicion`='".$def."',`Descripcion`='".$desc."',`Precio`='".$precio."' 
+            WHERE `idTipo`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////
+
+        public static function Dell_Proyeccion($id){
+            $sql1 = "DELETE FROM `reserva` WHERE `idProyección`='".$id."'";
+            $result1 = DB::Ejecutar($sql);  
+            $sql = "DELETE FROM `proyeccion` WHERE `idProyeccion`='".$id."'";
+            $result = DB::Ejecutar($sql);   
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function updateProyeccion($id, $sala, $peli, $tarifa, $fecha, $hora){
+            $sql ="UPDATE `proyeccion` SET 
+            `IdSala`='".$sala."',`idPelicula`='".$peli."',`idTipo`='".$tarifa."',`Fecha`='".$fecha."',`Hora`='".$hora."' 
+            WHERE `idProyeccion`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+
+        //////////////////////////////////////////////////////////////////////////
+        //
+        //  
+        //  
+        //
+        //////////////////////////////////////////////////////////////////////////        
+
+        public static function Get_Usuarios(){
+            $sql = "SELECT * FROM usuario";
+            $result = DB::Ejecutar($sql);  
+            if ($result->rowCount()>0) {    
+                require_once 'usuario.php';
+                while($objeto = $result->fetch(PDO::FETCH_ASSOC)){
+                    $usuario[] = new Usuario($objeto["idCliente"], $objeto["Nombre"], $objeto["Mail"], $objeto["Admin"]); 
+                } 
+                return $usuario;  
+            } else {
+                return -1;
+            }         
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function Dell_Usuario($id){
+            $sql = "DELETE FROM `usuario` WHERE `idCliente`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function mod_Admin($id, $admin){
+            $sql ="UPDATE `usuario` SET `Admin`='".$admin."' WHERE `idCliente`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+
         //////////////////////////////////////////////////////////////////////////
 
 

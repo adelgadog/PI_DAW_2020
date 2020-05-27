@@ -5,13 +5,11 @@
         if ($array_User->admin=="1") {
             $admin=true;
         } else {
-            $admin=false;
+            header("Location: inicio.php");
         }        
-    } 
-    if(!isset($array_Pelicula)) {
-        require_once '../scripts/funciones.php';
-        $array_Pelicula=Get_Novedades();
-    }  
+    }else{        
+        header("Location: inicio.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +20,7 @@
     <link rel="shortcut icon" type="favicon/ico" href="../img/favicon2.ico">
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../scripts/script.js"></script>    
@@ -31,9 +29,9 @@
 <body>
 
 
-    <div class="fondo container-fluid bg-secondary" id="fondo">
+    <div class="container-fluid bg-secondary">
 
-        <header class="row">
+    <header class="row">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">    
                 <div class="navbar-brand d-flex w-50 mr-auto">
                     <a href="../index.php"  id="logo">
@@ -54,7 +52,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="reservas.php" class="nav-link" >Reservar</a>
+                            <a href="reservas.php" class="nav-link" >Reserar</a>
                         </li>
                         <?php
                         if ($Registrado){
@@ -101,41 +99,57 @@
         </header>
 
         <section class="row justify-content-center seccion">
-            <div class="col bg-white pt-4 seccion2">
-                <div class="row mt-3 mb-1 justify-content-center">
-                    <h3 class="text-center mt-5 h3">Multicines</h3><br>
-                </div>
-                <div class="row mt-4 mb-1 justify-content-center">
-                    <h3 class=" h3">La Claqueta Rota</h3>
-                </div>
-                <div class="row mt-4 mb-1 justify-content-center">
-                    <h4 class="text-center mt-5">Nuestras Novedades</h4>
-                </div>
-                <div class="cajon_peliculas">
-                    <?php
-                        foreach ($array_Pelicula as $pelis) {
-                    ?>
-                    <div class="tarjeta_pelicula">   <!--Inicio tarjeta pelicula -->
-                        <div class="card datos" data-toggle="modal" data-target="#<?php echo $pelis->id; ?>">
-                            <img class=" btn card-img-top"  src="https://m.media-amazon.com/images/<?php echo $pelis->Cartel; ?>" id="imgTarjeta">
-                            <div class="card-body ">
-                                <h3 class="card-title"><?php echo $pelis->Titulo; ?></h3>
-                                <h5 class="card-subtitle">Año: <?php echo $pelis->Año; ?> </h5>
-                                <h5 class="card-subtitle">Duración: <?php echo $pelis->Duracion; ?></h5>
-                                <p class="card-text">Nota Media: <?php echo $pelis->Valoracion; ?></p>
-                            </div>
-                        </div>  
-                    </div>  <!--Fin tarjeta pelicula -->
-                    <?php
-                    }
-                    ?>
-                </div>           
+            <div class="col bg-white pt-4">
+                <h3 class="text-center mt-5">Panel de Administración</h3>
+                <div class="row mt-5 mb-1 justify-content-center">
+                    <div class="col-offset-1 col-md-10">
+                        <table class="table col-md-4  table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col " colspan="2">Seleccione una Opción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Añadir Pelicula</th>
+                                    <th>Modificar Pelicula</th>
+                                </tr>
+                                <tr>
+                                    <td><a class="btn btn-info" href="admin/adminAddPelicula.php" target="_blank">Añadir</a> </td>
+                                    <td><a class="btn btn-info" href="admin/adminPeliculas.php" target="_blank">Modificar</a> </td>
+                                </tr>
+                                <tr>
+                                    <th>Añadir Proyección</th>
+                                    <th>Modificar Proyección</th>
+                                </tr>
+                                <tr>
+                                    <td><a class="btn btn-info" href="admin/adminAddProyeccion.php" target="_blank">Añadir</a> </td>
+                                    <td><a class="btn btn-info" href="admin/adminProyeccion.php" target="_blank">Modificar</a> </td>
+                                </tr>
+                                <tr>
+                                    <th>Añadir Tarifa</th>
+                                    <th>Modificar Tarifa</th>
+                                </tr>
+                                <tr>
+                                    <td><a class="btn btn-info" href="admin/adminAddTarifa.php" target="_blank">Añadir</a> </td>
+                                    <td><a class="btn btn-info" href="admin/adminTarifas.php" target="_blank">Modificar</a> </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Modificar Usuario</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><a class="btn btn-info" href="admin/adminUsuarios.php" target="_blank">Modificar</a> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>        
 
             </div>
         </section>
 
         
         <?php include 'footer.php';?>
-        <?php //include 'panelPelicula.php';?>
+        <?php include 'panelPelicula.php';?>
 </body>
 </html>

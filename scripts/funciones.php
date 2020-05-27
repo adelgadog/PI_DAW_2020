@@ -25,7 +25,10 @@
                 break;   
             case 'funcion5':
                 registro_reserva($_POST['id'], $_POST['butacas'], $_POST['proyeccion']);
-                break;       
+                break; 
+            case 'funcion6':
+                revisa_mail($_POST['mail']);
+                break;    
         }
     }
         
@@ -38,6 +41,16 @@
     function Identificarse($mail, $pass){
        $usuario= DB::Get_Usuario($mail, $pass);
        echo json_encode($usuario);      
+    }        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+
+    function revisa_mail($mail){
+        $usuario= DB::revisa_mail($mail);
+        echo json_encode($usuario);        
     }
         
         //////////////////////////////////////////////////////////////////////////
@@ -101,6 +114,17 @@
         
         //////////////////////////////////////////////////////////////////////////
 
+    function Get_Novedades(){
+        $peliculas= DB::Get_Novedades();
+        return $peliculas;     
+    }
+                     
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+
     function Get_Proyeccion(){
         $proyeccion= DB::Get_Proyeccion();
         return $proyeccion;     
@@ -115,6 +139,28 @@
     function registro_reserva($id, $butacas, $proyeccion){
         $usuario= DB::Set_Reserva($id, $butacas, $proyeccion);
         echo json_encode($usuario);      
+    }
+                     
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+
+    function Get_reservas($iduser){
+        $reservas= DB::Get_Reservas($iduser);
+        return $reservas;      
+    }
+                     
+    //////////////////////////////////////////////////////////////////////////
+
+
+    
+    //////////////////////////////////////////////////////////////////////////
+
+    function Get_Usuarios(){
+        $usuarios= DB::Get_Usuarios();
+        return $usuarios;      
     }
     
 ?>

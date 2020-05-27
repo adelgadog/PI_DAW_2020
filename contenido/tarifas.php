@@ -54,7 +54,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="reservas.php" class="nav-link" >Reserar</a>
+                            <a href="reservas.php" class="nav-link" >Reservar</a>
                         </li>
                         <?php
                         if ($Registrado){
@@ -67,7 +67,7 @@
                         if ($admin){
                         ?>
                             <li class="nav-item">
-                                <a href="" class="nav-link">Administrar</a>
+                                <a href="pAdmin.php" class="nav-link">Administrar</a>
                             </li>                   
                         <?php
                         }
@@ -102,140 +102,41 @@
 
         <section class="row justify-content-center seccion">
             <div class="col bg-white pt-4">
-                <h3 class="text-center mt-5">El Cine</h3>
-                <h3 class="text-center mt-5">Nuestras Tarifas</h3>
+                <div class="row mt-4 mb-1 justify-content-center">
+                    <h3 class="text-center mt-5">Nuestras Tarifas</h3>
+                </div>
+                
                 <div class="row mt-5 mb-1 justify-content-center">
-                    <table class="table offset-2 col-md-8  table-striped mr-5 ml-5">
-                        <thead>
-                            <tr>
-                                <th scope="col ">#</th>
-                                <th scope="col">Definición:</th>
-                                <th  class=" d-none  d-md-block" scope="col">Descripcion:</th>
-                                <th scope="col">Precio:</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($array_tarifas as $tarifa) {
-                            ?>
+                    <div class="col-offset-1 col-md-10">
+                        <table class="table col-md-4  table-striped">
+                            <thead>
                                 <tr>
-                                    <th scope="row"><?php echo $tarifa['idTipo']; ?></th>
-                                    <td><?php echo $tarifa['Definicion']; ?></td>
-                                    <td class="d-none d-md-block"><?php echo $tarifa['Descripcion']; ?></td>
-                                    <td><?php echo $tarifa['Precio']."€"; ?></td>
+                                    <th scope="col ">#</th>
+                                    <th scope="col">Definición:</th>
+                                    <th class=" d-none  d-md-block" scope="col">Descripcion:</th>
+                                    <th scope="col">Precio:</th>
                                 </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($array_tarifas as $tarifa) {
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $tarifa['idTipo']; ?></th>
+                                        <td><?php echo $tarifa['Definicion']; ?></td>
+                                        <td class="d-none d-md-block"><?php echo $tarifa['Descripcion']; ?></td>
+                                        <td><?php echo $tarifa['Precio']."€"; ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>     
             </div>
         </section>
 
-        <footer class="page-footer  bg-dark">             
-            <div class=" row bg-dark text-white justify-content-end">
-                <div class="d-flex justify-content-end mt-2">
-                    <nav class="navbar navbar-expand-md navbar-dark justify-content-end bg-dark">
-                        <div class="collapse navbar-collapse" id="navbarText">
-                            <ul class="navbar-nav mr-3">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contactanos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Ubicación</a>
-                            </li>
-                            </ul>
-                        </div>                        
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </nav>
-                </div>
-            </div>       
-                
-                <div class=" row text-center  bg-dark text-white ">
-                    <div class="mx-auto mb-2">
-                    <span>© 2020 Copyright:</span>    
-                    <span>Andrés Delgado</span></div>
-                </div> 
-        </footer>
-    </div>
-
-    <article class="modal fade" id="login">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Inicia sesión</h5>
-                    <span data-dismiss="modal" class="close">X</span>
-                </div>
-                <form method="post" class="form-signin" id="inicio">
-                    <div class="modal-body">
-                        <div class="form-label-group">
-                            <label for="correo" class="col-form-label">Correo electrónico:</label>
-                            <input type="email" id="correo_L" name="correo" class="form-control" placeholder="Correo electrónico" autofocus required>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label for="password" class="col-form-label">Contraseña:</label>
-                            <input type="password" id="password_L" name="password" class="form-control" placeholder="Contraseña" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="remember" class="col-form-label">Recuerdame:</label>
-                            <input type="checkbox" name="remember" id="remember">
-                        </div>
-                    </div>
-                    <div class="modal-footer">                          
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" name="entrar" id="b_login" class="btn btn-success b_login">Entrar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </article>
-
-        
-    <article class="modal fade" id="registrar">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Registrarse</h5>
-                    <span data-dismiss="modal" class="close">X</span>
-                </div>
-
-                <form method="post" class="form-signin ">
-                    <div class="modal-body">
-                        
-                        <div class="form-label-group">
-                            <label for="nombre" class="col-form-label">Nombre:</label>
-                            <input type="text" id="Usuario_R" name="nombre" class="form-control" placeholder="Nombre" autofocus>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label for="mail" class="col-form-label">Correo electrónico:</label>
-                            <input type="email" id="Mail_R" name="correo" class="form-control" placeholder="Dirección de correo electrónico" autofocus required>
-                        </div>
-
-                        <div class="form-label-group">                            
-                            <label for="psw1" class="col-form-label">Contraseña:</label>
-                            <input type="password" id="Pass_R" name="password" class="form-control" placeholder="Contraseña">
-                        </div>
-
-                        <div class="form-label-group">        
-                            <label for="psw2" class="col-form-label">Repita Contraseña:</label>
-                            <input type="password" id="psw2" name="password" class="form-control" placeholder="Contraseña">
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer text-right">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" name="entrar" id="b_registro" class="btn btn-primary b_registro">Registrarse</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </article>
-
+       <?php include 'footer.php';?>
 </body>
 </html>
