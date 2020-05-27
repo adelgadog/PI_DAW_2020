@@ -127,41 +127,43 @@
 
                     <form action="" method="post">
                         <div class="tab-content " id="myTabContent">
-                            <div class="tab-pane container fade show active" id="pelis" role="tabpanel" > 
-                                <div class="row text-center justify-content-center">
-                                    <h3 class="text-center mt-3">Lista de Peliculas</h3>
-                                </div>                           
-                                <div class="row panelPirncipal">
-                                    <div class="col-lg-3 offset-lg-1">                                    
-                                        <label class="ml-5 mt-3" for="lista_Peliculas">Selecciona la pelicula:</label>
-                                        <select multiples class="form-control mt-2" id="lista_Peliculas">
-                                        </select>
+                            <div class="tab-pane  fade show active" id="pelis" role="tabpanel" > 
+                                <div class="container">
+                                    <div class="row text-center justify-content-center">
+                                        <h3 class="text-center mt-3">Lista de Peliculas</h3>
+                                    </div>                           
+                                    <div class="row panelPirncipal">
+                                        <div class="col-lg-3 offset-lg-1">                                    
+                                            <label class="ml-5 mt-3" for="lista_Peliculas">Selecciona la pelicula:</label>
+                                            <select multiples value="" name="lista_Peliculas" class="form-control mt-2" id="lista_Peliculas">
+                                            </select>
+                                        </div>
+                                        <div class=" col-lg-7 offset-lg-1 mt-5 text-right justify-content-end" >
+                                            <div class="row" id="reseña">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class=" col-lg-7 offset-lg-1 mt-5 text-right justify-content-end" >
-                                        <div class="row" id="reseña">
+                                    <div class="row mt-5">
+                                        <div class="col-md-1 offset-sm-10 offset-5" role="tablist">
+                                            <a class=" btn btn-primary text-white peliculaSig tab-next" href="#sesion" id="tabForm" role="tab" data-toggle="tab">Siguiente</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-5">
-                                    <div class="col-md-1 offset-sm-10 offset-5" role="tablist">
-                                        <a class=" btn btn-primary text-white peliculaSig tab-next" href="#sesion" id="tabForm" role="tab" data-toggle="tab">Siguiente</a>
-                                    </div>
-                                </div>
-                                
                             </div>
-                            <div class="tab-pane container fade " id="sesion" role="tabpanel" >
+                            <div class="tab-pane  fade " id="sesion" role="tabpanel" >
+                            <div class="container">
                                 <div class="row text-center justify-content-center">
                                     <h3 class="text-center mt-3">Lista de Sesiones</h3>
                                 </div>                          
                                 <div class="row panelPirncipal">
                                     <div class="col-md-3 listaFecha">                                    
                                         <label class="ml-5 mt-3" for="lista_sesiones">Selecciona la sesión:</label>
-                                        <select  multiples class="form-control mt-2" id="lista_sesiones">
+                                        <select  multiples name="lista_sesiones" class="form-control mt-2" id="lista_sesiones">
                                         </select>
                                     </div>
                                     <div class="col-md-3 offset-2" id="horarios">                              
                                         <label class="ml-5 mt-3" for="lista_horarios">Selecciona el Horario:</label>
-                                        <select multiples class="form-control mt-2" id="lista_horarios">
+                                        <select multiples class="form-control mt-2" name="lista_horarios" id="lista_horarios">
                                         </select>
                                     </div>
                                 </div>                                
@@ -174,45 +176,47 @@
                                         <a class=" btn btn-primary text-white sesionSig" <?php if (!$Registrado){ echo "data-toggle='modal' data-target='#login'"; }?> >Siguiente</a>
                                     </div>
                                 </div>
+                                </div>
                             </div>
-                            <div class="tab-pane container fade " id="asientos" role="tabpanel" >
-                                <div class="row text-center justify-content-center">
-                                    <h3 class="text-center mt-3">Seleccion de asientos</h3>
-                                </div>                           
-                                <div class="row panelPirncipal">
-                                    <div class="col-md-3 offset-1 mt-5" id="disponibles">    
-                                    </div>
-                                    <div class="col-md-5 offset-1 mt-5" id="reservadas">
-                                    </div>                                    
-                                </div>                           
-                                <div class="row mt-5">
-                                    <div class="col-md-1 offset-sm-1 offset-0">
-                                        <a class=" btn btn-primary text-white asientosAtras" >Atras</a>
-                                    </div>
-                                    <div class="col-md-1 offset-sm-8 offset-3">
-                                        <a class=" btn btn-primary text-white asientosSig" >Siguiente</a>
+                            <div class="tab-pane  fade " id="asientos" role="tabpanel" >
+                                <div class="container">
+                                    <div class="row text-center justify-content-center">
+                                        <h3 class="text-center mt-3">Seleccion de asientos</h3>
+                                    </div>                           
+                                    <div class="row panelPirncipal">
+                                        <div class="col-md-3 offset-1 mt-5" id="disponibles">    
+                                        </div>
+                                        <div class="col-md-5 offset-1 mt-5" id="reservadas">
+                                        </div>                                    
+                                    </div>                           
+                                    <div class="row mt-5">
+                                        <div class="col-md-1 offset-sm-1 offset-0">
+                                            <a class=" btn btn-primary text-white asientosAtras" >Atras</a>
+                                        </div>
+                                        <div class="col-md-1 offset-sm-8 offset-3">
+                                            <a class=" btn btn-primary text-white asientosSig" >Siguiente</a>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>   
                             <div class="tab-pane container fade " id="pagos" role="tabpanel" >
-
-                                <div class="row text-center justify-content-center">
-                                    <h3 class="text-center mt-3">Confirme la Selección</h3>
-                                </div>                                                
-                                <div class="row panelPirncipal">
-                                    <div class="row mt-5"  id="datosFinal">
-                                  </div>                                 
-                                </div>        
-                                <div class="row mt-5">
-                                    <div class="col-md-1 offset-sm-1 offset-0">
-                                        <a class=" btn btn-primary text-white confirmAtras" >Atras</a>
-                                    </div>
-                                    <div class="col-md-1 offset-sm-7 offset-3">
-                                        <a class=" btn btn-success text-white confirmar" >Finalizar</a>
+                                <div class="container">
+                                    <div class="row text-center justify-content-center">
+                                        <h3 class="text-center mt-3">Confirme la Selección</h3>
+                                    </div>                                                
+                                    <div class="row panelPirncipal">
+                                        <div class="row mt-5"  id="datosFinal">
+                                        </div>                                 
+                                    </div>        
+                                    <div class="row mt-5">
+                                        <div class="col-md-1 offset-sm-1 offset-0">
+                                            <a class=" btn btn-primary text-white confirmAtras" >Atras</a>
+                                        </div>
+                                        <div class="col-md-1 offset-sm-7 offset-3">
+                                            <a class=" btn btn-success text-white confirmar" >Finalizar</a>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>   
                         </div>
                     </form>

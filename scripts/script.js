@@ -30,20 +30,6 @@ $(document).ready(function () {
             Chequear_R($("#Usuario_R").val(), $("#Pass_R").val(), $("#Mail_R").val());                   
         }
     });   
-
-    //////////////////////////////////////////////////////////////////////////
-    //
-    //  
-    //  
-    //
-    //////////////////////////////////////////////////////////////////////////
-    
-    document.getElementsByClassName("rango_nota").oninput = function(){
-        $("#anuncio").attr('class','oculto');
-        $("#modificar").attr('class','modificar');
-        document.getElementById("muestra_nota").innerHTML=this.value;
-    
-    };
     
     //////////////////////////////////////////////////////////////////////////
     //

@@ -23,11 +23,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="favicon/ico" href="../img/favicon2.ico">
     <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="../scripts/script.js"></script>    
+    <script src="../scripts/scriptNota.js"></script>    
     <title>Cine</title>
 </head>
 <body>
@@ -117,20 +119,29 @@
                                     <img src="https://m.media-amazon.com/images/<?php echo $reserva->cartel; ?>" id="imgTarjeta" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8 ">
-                                    <div class="card-body ml-2 nota_cuerpo" style="min-height: 13em;">
-                                        <h5 class="card-title"><?php echo $reserva->titulo; ?></h5>
-                                        <h5 class="card-subtitle mb-3">Hora: <?php echo $reserva->hora; ?>
-                                        <div class="container mt-4 ml-md-3">
-                                            <p class="card-text ">Nota Actual: <?php if($reserva->nota!=-1){ echo $reserva->nota;}else{echo "N-A";} ?></p>
-                                            <div class="slidecontainer">
-                                                <input type="range" min="1" max="10" step="0.5" class="rango_nota custom-range" id="rango_nota" value='<?php if($reserva->nota!=-1){ echo $reserva->nota;}else{echo 5;} ?>'>
+                                    <form action="valora.php" method="post">
+                                        <div class="card-body ml-2 nota_cuerpo" style="min-height: 13em;">
+                                            <h5 class="card-title"><?php echo $reserva->titulo; ?></h5>
+                                            <h5 class="card-subtitle mb-3">Hora: <?php echo $reserva->hora; ?>
+                                            <div class="container mt-4 ml-md-3">
+                                                <p class="card-text ">Nota Actual: <?php if($reserva->nota!=-1){ echo $reserva->nota;}else{echo "N-A";} ?></p>
+                                                <div class="slidecontainer">
+                                                    <input type="range" min="1" max="10" step="0.5" id="<?php echo $reserva->pelicula; ?>" name="nota" class="rango_nota custom-range" value='<?php if($reserva->nota!=-1){ echo $reserva->nota;}else{echo 5;} ?>'>
+                                                    <input type="hidden" name="usuario" value="<?php echo $array_User->id; ?>">                                              
+                                                    <input type="hidden" name="peli" value="<?php echo $reserva->pelicula; ?>">                                              
+                                                    <input type="hidden" name="nueva" value="<?php if($reserva->nota!=-1){ echo 1;}else{echo 0;}?>">                                               
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="anuncio" id="anuncio"><p class="card-text ">Pon o cambia tu nota.</p></div>
-                                        <div class="modificar oculto" id="modificar"> <span class="card-text">Nota:</span> <span class="muestra_nota" id="muestra_nota"></span></div>
-                                    </div>
+                                        <div class="card-footer">
+                                            <div class="anuncio_<?php echo $reserva->pelicula; ?>" id="anuncio_<?php echo $reserva->pelicula; ?>"><p class="card-text ">Pon o cambia tu nota.</p></div>
+                                            <div class=" modificar_<?php echo $reserva->pelicula; ?> oculto" id="modificar_<?php echo $reserva->pelicula; ?>">
+                                                <div class="d-flex justify-content-between">
+                                                <div> <span class="card-text">Nueva Nota:</span> <span class="muestra_nota_<?php echo $reserva->pelicula; ?>" id="muestra_nota_<?php echo $reserva->pelicula; ?>"></span></div>
+                                                <button type="submit" class="btn-success b_nota" name="poner_nota" id="boton_<?php echo $reserva->pelicula; ?>">Enviar</button></div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div></div></div>

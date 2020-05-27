@@ -95,8 +95,41 @@
             </header>
 
         <section class="row justify-content-center seccion">
-            <div class="col bg-white pt-4">
-                
+            <div class="col bg-white pt-4">                
+                <div class="row mt-5 mb-1 text-center">
+                    <div class="col-lg-4 offset-lg-4 text-center ">
+                        <h3 class=" text-center  mt-5">Contacte con nosotros</h3>
+                    </div>                    
+                </div>
+
+                <div class="row mt-5 mb-1 ">
+                    
+                    <div class="col-lg-3 offset-lg-1">
+                        <address>
+                            <span>E-Mail: <a href="mailto:cines.la.claqueta.rota@gmail.com">cines.la.claqueta.rota@gmail.com</a> </span><br>
+                            
+                            <abbr>Teléfono: </abbr><span>659284353</span> <br>
+                        </address>
+                    </div>
+                    <div class="col-lg-5 text-center text-lg-left offset-lg-1">
+                        <form action="contactar.php" method="post"> 
+                            <div class="form-group row">
+                                <label for="nombreUser">Nombre: </label>
+                                <input type="text" class="form-control" name="contactoUser" id="nombreUser" required placeholder="Tu Nombre">
+                            </div>
+                            <div class="form-group row">
+                                <label for="nombreUser">E-Mail: </label>
+                                <input type="amail" class="form-control" name="contactoMail" required id="emailUser" placeholder="correo@ejemplo.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="comentUser">Comentario:</label>
+                                <textarea class="form-control" id="comentUser" name="contactoMensaje" required rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+
+                </div>
             </div>
         </section>
 

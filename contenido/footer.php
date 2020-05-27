@@ -5,7 +5,7 @@
                             <div class="collapse navbar-collapse" id="navbarText">
                                 <ul class="navbar-nav mr-3">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contacto.php">Contactanos</a>
+                                    <a class="nav-link" href="contacto.php">Contactenos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="ubicacion.php">Ubicación</a>

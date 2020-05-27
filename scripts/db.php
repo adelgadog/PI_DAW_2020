@@ -218,15 +218,41 @@
         //
         //////////////////////////////////////////////////////////////////////////
 
-        public static function Set_Reserva($id, $butacas, $proyeccion){        
-            $sql = "INSERT INTO `reserva`(`idUsuario`, `idProyección`, `Butacas`) VALUES (?,?,?)";
-            $conn = new Conexion(); 
-            try {
-                $stmt= $conn->prepare($sql);
-                $stmt->execute([$id, $proyeccion, $butacas]);
-            } catch (PDOException $e) {
-                return -1;
-            }  
+        public static function Set_Reserva($id, $peli, $butacas, $proy){   
+            $usuario=json_decode($id);
+            $proyeccion=json_decode($proy);
+            $userId=$usuario->id;
+            $proyec=$proyeccion->id;
+            $fecha=$proyeccion->Fecha;
+            $hora=$proyeccion->Hora;
+            $tarifa=$proyeccion->Definicion_Tarifa;
+            $precio=$proyeccion->Precio;
+            $total=$precio*$butacas;
+            $sql = "INSERT INTO `reserva`(`idUsuario`, `idProyección`, `Butacas`) VALUES ('".$userId."','".$proyec."','".$butacas."')";
+            $result = DB::Ejecutar($sql); 
+            if($result) {
+                $to = $usuario->mail;
+                $subject = "Entradas de Cine La Claqueta Rota";
+                $message = "Gracias por comprar en Cine La Claqueta Rota.\n
+                            Le enviamos este correo para confirmar su compra de entradas:\n
+                            Titulo de la pelicula: ".$peli."\n
+                            Dia: ".$fecha."\n
+                            Hora: ".$hora."\n
+                            Tipo de Tarifa: ".$tarifa."\n
+                            Precio por Entrada: ".$precio."\n
+                            Total de Entradas: ".$butacas."\n
+                            Coste Total: ".$total."\n
+                            \n
+                            Gracias por confiar en nosotros y que disfrute de la Pelicula.\n
+                            ";
+                $headers = "From: sitosys@gmail.com" ;
+                
+                ini_set("SMTP", "mail.laclaquetarota.com");
+                ini_set("sendmail_from", "laclaqueta@rota.com");
+                mail($to, $subject, $message, $headers);
+               // claqueta1920
+            }
+            return $result; 
         }
         
         //////////////////////////////////////////////////////////////////////////
@@ -367,12 +393,12 @@
         //////////////////////////////////////////////////////////////////////////
 
         public static function Dell_Pelicula($id){
-            $sql = "DELETE FROM `valoración` WHERE `idPelicula`='".$id."'";
-            $result = DB::Ejecutar($sql);  
-            $sql = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idPelicula`='".$id."')";
-            $result = DB::Ejecutar($sql);  
-            $sql = "DELETE FROM `proyeccion` WHERE `idPelicula`='".$id."'";
-            $result = DB::Ejecutar($sql);  
+            $sql1 = "DELETE FROM `valoración` WHERE `idPelicula`='".$id."'";
+            $result1 = DB::Ejecutar($sql);  
+            $sql2 = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idPelicula`='".$id."')";
+            $result2 = DB::Ejecutar($sql);  
+            $sql3 = "DELETE FROM `proyeccion` WHERE `idPelicula`='".$id."'";
+            $result3 = DB::Ejecutar($sql);  
             $sql = "DELETE FROM `pelicula` WHERE `idPelicula`='".$id."'";
             $result = DB::Ejecutar($sql);  
             if ($result) {  
@@ -446,7 +472,7 @@
         //
         //////////////////////////////////////////////////////////////////////////
 
-        public static function Dell_Proyeccion($id){
+        public static function Dell_Proyeccion($id){         
             $sql1 = "DELETE FROM `reserva` WHERE `idProyección`='".$id."'";
             $result1 = DB::Ejecutar($sql);  
             $sql = "DELETE FROM `proyeccion` WHERE `idProyeccion`='".$id."'";
@@ -505,6 +531,40 @@
         
         public static function Dell_Usuario($id){
             $sql = "DELETE FROM `usuario` WHERE `idCliente`='".$id."'";
+            Dell_Nota($id);
+            Dell_Reservas($id);
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function Dell_Reservas($id){
+            $sql = "DELETE FROM `reserva` WHERE `idUsuario`'".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function Dell_Nota($id){
+            $sql = "DELETE FROM `valoración` WHERE `idUsuario`='".$id."'";
             $result = DB::Ejecutar($sql);  
             if ($result) {  
                 return 1; 
@@ -521,6 +581,38 @@
         
         public static function mod_Admin($id, $admin){
             $sql ="UPDATE `usuario` SET `Admin`='".$admin."' WHERE `idCliente`='".$id."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function Up_Nota($usr, $peli, $nota){
+            $sql ="UPDATE `valoración` SET `Valoración`='".$nota."' WHERE `idUsuario`='".$usr."' AND `idPelicula`='".$peli."'";
+            $result = DB::Ejecutar($sql);  
+            if ($result) {  
+                return 1; 
+            } else {
+                return -1;
+            }   
+        }
+        
+        //////////////////////////////////////////////////////////////////////////
+
+
+        
+        //////////////////////////////////////////////////////////////////////////
+        
+        public static function Set_Nota($usr, $peli, $nota){
+            $sql ="INSERT INTO `valoración`(`idUsuario`, `idPelicula`, `Valoración`) VALUES ('".$usr."','".$peli."','".$nota."')";
             $result = DB::Ejecutar($sql);  
             if ($result) {  
                 return 1; 

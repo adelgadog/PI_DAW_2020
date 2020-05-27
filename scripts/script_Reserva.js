@@ -85,7 +85,9 @@ $(document).ready(function() {
         //////////////////////////////////////////////////////////////////////////
 
         $(".opcionPelicula").click(function(){ // Ininio Funcion Click Pelicula
-            $("#reseña").html('')
+            $("#reseña").html('');
+            $("#lista_sesiones").html('');
+            $("#lista_horarios").html('');
             let pelicula = peliculas.find(peli => peli.id==$("#lista_Peliculas").val());
             let contenedorImagen = $("<div>");        
             contenedorImagen.attr("class", "text-left col-md-offset-2 col-md-5 justify-content-start");
@@ -253,6 +255,10 @@ $(document).ready(function() {
                             listado1.attr("class", "card-text");
                             listado1.text("Hora: "+Proyec.Hora);
                             lista.append(listado1);
+                            let listado5 = $("<li>");
+                            listado5.attr("class", "card-text");
+                            listado5.text("Tarifa: "+Proyec.Definicion_Tarifa);
+                            lista.append(listado5);
                             let listado2 = $("<li>");
                             listado2.attr("class", "card-text");
                             listado2.text("Precio: "+Proyec.Precio);
@@ -275,19 +281,23 @@ $(document).ready(function() {
 
 
                             $(".confirmar").click(function(){ // Boton Finalizar Panel Confirmación 
-                                let usuario = JSON.parse(getCookie("usuario_cine"));
-                                console.log(usuario);
-                                console.log("Butacas: "+$("#cantidad").val()+"Proyeccion: "+$("#lista_horarios").val());
-                                console.log($("#lista_horarios").val()[0]);
+                                let usuario = getCookie("usuario_cine");
+                                let Proyec =   JSON.stringify(proyecciones.find(proy => proy.id==$("#lista_horarios").val()));
+                                let pelicula = peliculas.find(peli => peli.id==$("#lista_Peliculas").val());
+                                let titulo= pelicula.Titulo;
+                                //console.log(usuario);
+                                //console.log("Butacas: "+$("#cantidad").val()+"Proyeccion: "+$("#lista_horarios").val());
+                                //console.log($("#lista_horarios").val()[0]);
                                $.ajax({
                                     type: "post",
                                     url: "../scripts/funciones.php",
-                                    data: {id:usuario.id,butacas:$("#cantidad").val(),proyeccion:$("#lista_horarios").val()[0],funcion:"funcion5"},
+                                    data: {id:usuario,peli:titulo,butacas:$("#cantidad").val(),proyeccion:Proyec,funcion:"funcion5"},
                                     error(xhr,status,error){console.log("nope");
                                     },
                                     success: function (data) {
+                                        alert(data);
                                        // console.log(data)
-                                       window.location.href="../index.php";
+                                       //window.location.href="../contenido/valoracion.php";
                                     }
                                 });   
                             });  
@@ -327,7 +337,7 @@ $(document).ready(function() {
         if (getCookie("usuario_cine")==-1) { // A partir de esta pestaña se necesita estar registrado para acceder
             alert("Necesita estar registrado para continuar.");
         }else{      
-            if ($("#lista_sesiones").val()!='') { 
+            if ($("#lista_sesiones").val()!=null) { 
                 $(".link_asiento").toggleClass("active show");
                 $(".link_sesion").toggleClass("active show");
                 $("#asientos").toggleClass("active show");
@@ -340,7 +350,8 @@ $(document).ready(function() {
     });
 
     $(".peliculaSig").click(function(){ // Boton Siguiente Panel Películas
-        if ($("#lista_Peliculas").val()!='') {            
+        //alert($("#lista_Peliculas").val());
+        if ($("#lista_Peliculas").val()!=null) {            
             $(".link_pelicula").toggleClass("active show");
             $(".link_sesion").toggleClass("active show");
             $("#pelis").toggleClass("active show");
@@ -352,7 +363,7 @@ $(document).ready(function() {
     });   
 
     $(".asientosSig").click(function(){ // Boton Siguiente Panel Butacas  
-        if ($("#cantidad").val()!='') {
+        if ($("#cantidad").val()!=null) {
             $(".link_asiento").toggleClass("active show");
             $(".link_check").toggleClass("active show");
             $("#asientos").toggleClass("active show");

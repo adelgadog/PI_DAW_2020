@@ -24,7 +24,7 @@
                 registro_usuario($_POST['nombre'], $_POST['pass'], $_POST['mail']);
                 break;   
             case 'funcion5':
-                registro_reserva($_POST['id'], $_POST['butacas'], $_POST['proyeccion']);
+                registro_reserva($_POST['id'], $_POST['peli'], $_POST['butacas'], $_POST['proyeccion']);
                 break; 
             case 'funcion6':
                 revisa_mail($_POST['mail']);
@@ -136,8 +136,13 @@
         
         //////////////////////////////////////////////////////////////////////////
 
-    function registro_reserva($id, $butacas, $proyeccion){
-        $usuario= DB::Set_Reserva($id, $butacas, $proyeccion);
+    function registro_reserva($id, $peli, $butacas, $proyeccion){
+        $usuario= DB::Set_Reserva($id, $peli, $butacas, $proyeccion);
+        
+        //$usuario=json_decode($id);
+       // $proy=json_decode($proyeccion);
+        //echo "id:".gettype ( $usuario ).", mail: ".$usuario->mail.", proyeccion:".gettype (  $proy );
+        //echo json_encode($id);
         echo json_encode($usuario);      
     }
                      
@@ -161,6 +166,20 @@
     function Get_Usuarios(){
         $usuarios= DB::Get_Usuarios();
         return $usuarios;      
+    }
+    //////////////////////////////////////////////////////////////////////////
+
+
+    
+    //////////////////////////////////////////////////////////////////////////
+
+    function Set_Nota($usr, $peli, $nota, $nueva){
+        if ( $nueva==1) {
+            $resultado= DB::Up_Nota($usr, $peli, $nota);
+        } else if( $nueva==0)  {
+            $resultado= DB::Set_Nota($usr, $peli, $nota);
+        }        
+        echo json_encode($resultado);      
     }
     
 ?>
