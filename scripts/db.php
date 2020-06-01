@@ -234,7 +234,7 @@
             
             // Codigo para enviar correos desde la pagina. Aun no es funcional.
 
-           /* if($result) {
+            if($result) {
                 $to = $usuario->mail;
                 $subject = "Entradas de Cine La Claqueta Rota";
                 $message = "Gracias por comprar en Cine La Claqueta Rota.\n
@@ -250,12 +250,11 @@
                             Gracias por confiar en nosotros y que disfrute de la Pelicula.\n
                             ";
                 $headers = "From: sitosys@gmail.com" ;
-                
-                ini_set("SMTP", "mail.laclaquetarota.com");
-                ini_set("sendmail_from", "laclaqueta@rota.com");
                 mail($to, $subject, $message, $headers);
-               // claqueta1920
-            }*/
+                //cines.la.claqueta.rota@gmail.com
+                //claqueta19-20
+                //znrpfwyuulpxfusv
+            }
             return $result; 
         }
         

@@ -110,7 +110,7 @@
                         </address>
                     </div>
                     <div class="col-lg-5 col-9 text-center text-lg-left offset-1">
-                        <form  action="mailto:cines.la.claqueta.rota@gmail.com"  method="post">  <!-- <form  action="contactar.php"  method="post">  -->
+                        <form  action="contactar.php"  method="post">  <!-- <form  action="mailto:cines.la.claqueta.rota@gmail.com"  method="post">  -->
                             <div class="form-group row">
                                 <label for="nombreUser">Nombre: </label>
                                 <input type="text" class="form-control" name="contactoUser" id="nombreUser" required placeholder="Tu Nombre">
@@ -123,7 +123,7 @@
                                 <label for="comentUser">Comentario:</label>
                                 <textarea class="form-control" id="comentUser" name="contactoMensaje" required rows="3"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="btn mr-5 btn-primary">Enviar</button> <?php if ($_GET["enviado"]){echo "<span>Mensaje enviado.</span>";} ?>
                         </form>
                     </div>
 
