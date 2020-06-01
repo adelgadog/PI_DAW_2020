@@ -37,15 +37,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Añadir Película</title>
+    <title>Admin: Actualizar Proyección</title>
     <link rel="stylesheet" href="../../styles/styleAdmin.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
         function goBack() {
             window.location.replace("adminProyeccion.php");
         }
     </script>
 </head>
-<body>  
+<body class="fondo">  
     <?php
         if (!empty($_GET["accion"])) {
             $accion=$_GET["accion"];
@@ -58,8 +62,8 @@
         } 
     ?>
         <form action="upProyeccion.php" method="post">
-            <table>
-                <th>Formulario de Modificación de Proyecciones</th>
+            <table class="tablaAdminPelicula">
+                <th class="tablaAdminPelicula_th" colspan=2>Formulario de Modificación de Proyecciones</th>
                 <tr>
                     <td><label>Sala:</label></td>
                     <td>

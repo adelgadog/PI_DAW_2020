@@ -1,25 +1,74 @@
+    @font-face {
+      font-family: "Furga";
+      src: url("Fonts/Furgatorio.ttf");
+	}
+	@font-face {
+		font-family: "MetroB";
+		src: url("Fonts/MetroBeardy.ttf");
+	}
+	@font-face {
+		font-family: "Orch";
+		src: url("Fonts/Orchide.ttf");
+	}
+	@font-face {
+		font-family: "Heaters";
+		src: url("Fonts/Heaters.otf") format("opentype");
+	}
+	@font-face {
+		font-family: "DarkSeed";
+		src: url("Fonts/DarkSeed.otf") format("opentype");
+	}
 
-html{
-	height: 100%;
-    min-height:95%;
-}
-body{
-	display: flex;
-    min-height:95%;	
-	padding-top: 30px;
-	
+
+.nombre{
+	font-family: "Heaters";
+	font-size: 5rem;
 }
 
+/*
+	Posicionamiento y tamaño de la pagina.
+	Esto me permite definir tamaños con mas facilidad en el resto de elementos.
+*/
+
+	html{
+		height: 100%;
+		min-height:95%;
+	}
+	body{
+		display: flex;
+		min-height:95%;	
+		padding-top: 30px;			
+	}
+	#fondo{
+		background-color: #284b63;
+	}
+
+/*
+	Tamaño del bloque de visionado principal.
+	Controlo el tamaño Pesponsive mediante MediaQuery
+*/
+.seccion2{
+	background-color: #F4F9E9;
+}
 .seccion{
 	height: 100%;
 	min-height: 95%;
 }
-@media screen and (min-width: 900px) {
+@media only screen and (min-width: 900px) {
 	.seccion{		
 		padding-left: 7%;
 		padding-right: 7%;
 	}
+
+	.map{
+		width: 150px;
+		height: 100px;
+	}
 }
+
+/*
+	El logo que se muestra en la cabecera.
+*/
 #logo{
 	width: 80px;
 	height: 40px;
@@ -31,6 +80,9 @@ body{
 	height: 40px;
 }
 
+/*
+	Contenedor que muestra las tarjetas resumen de las peliculas en cartelera.
+*/
 .cajon_peliculas {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -45,21 +97,40 @@ body{
 		-ms-flex-pack: center;
 			justify-content: center;
 }
-  
-.tarjeta_pelicula {
-background: #ffffff;
-box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
-width: 100%;
-max-width: 315px;
-margin: 2em;
-border-radius: 10px;
-display: inline-block;
+/*
+	Tarjeta resumen de las peliculas. Y contenedor de las datos 
+	escritos para mayor control de como se muestran.
+*/
+
+.tarjeta_pelicula:hover{
+    -webkit-box-shadow: 0px 0px 13px 6px rgba(41,36,41,1);
+    -moz-box-shadow: 0px 0px 13px 6px rgba(41,36,41,1);
+    box-shadow: 0px 0px 13px 6px rgba(41,36,41,1);
 }
+.tarjeta_pelicula {
+	background-color:  #f4f9e9;
+	box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 315px;
+	margin: 2em;
+	border-radius: 10px;
+	display: inline-block;
+	}
 .datos{
+	background-color: #f4f9e9;
 	height: 100%;
 }
 
+/*
+	Elemento modal que muestra todos los datos de una pelicula.
+	Se controla el contenedor del video a parte.
+*/
+.modal_completo{
+
+	background: #f4f9e9;
+}
 .modal_peliculas {
+	background: #f4f9e9;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -79,6 +150,9 @@ display: inline-block;
 .card-subtitle{
 	padding-bottom: 0.5em;
 }
+/*
+	Contenedor donde se muestra la nota de las peliculas.
+*/
 .contenedor_nota {
 	position: relative;
 	text-align: center;
@@ -91,10 +165,13 @@ display: inline-block;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-  }
+}
 
 
-  .tab-pane {
+/*
+	Sección de la reserva de entradas.
+*/
+.tab-pane {
     padding:20px;
 }
 
@@ -103,25 +180,40 @@ display: inline-block;
 }
   
 .panelPirncipal select {
-overflow: hidden;
+	overflow: hidden;
 }
 .pie{
 	width: 100%;
 }
+/*
 .fondo{
-	background-image: url("../img/bg3.png");
+	
 	background-size: cover; 
 	background-position: center;
 }
-#mapa{
+*/
+
+/*
+	Mapa de ubicación.
+*/
+.frame{
+
+	width: 100%;
+	height: 100%;
+}
+.map{
 	width: 450px;
-	height: 350px;
+	height: 300px;
 }
 
+/*
+	Valoración de peliculas. 
+	Oculto se utiliza para mostrar la nota que se quiere variar 
+	y ocultar el mensaje que se muestra previamente.
+*/
 .nota_cuerpo{
 	min-height: 5rem;
 }
-
 .oculto{
 	display: none;
 }

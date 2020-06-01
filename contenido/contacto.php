@@ -25,11 +25,11 @@
 <body>
 
 
-    <div class="container-fluid bg-secondary">
+    <div class="container-fluid" id="fondo">
 
         <header class="row">
                 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">    
-                    <div class="navbar-brand d-flex w-50 mr-auto">
+                    <div class="navbar-brand d-flex w-45 mr-auto">
                         <a href="../index.php"  id="logo">
                             <img src="../img/logoW.png" id="logo_img">
                         </a>
@@ -67,23 +67,21 @@
                             }
                             ?>
                         </ul>
-                        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                        <ul class="nav navbar-nav ml-auto w-100 justify-content-end align-items-end">
                             <?php
                             if (!$Registrado) {
                             ?>
-                                <li class="nav-item">
+                                 <li class="nav-item">
                                     <input class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#login" type="button" value="Log-In">
-                                </li> 
-                                <li class="nav-item mt-2 mt-sm-0">
-                                    <input class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
+                                
+                                    <input class="btn btn-primary mt-2 mt-sm-0 btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
                                 </li> 
                             <?php
                             }else{                    
                             ?>
                                 <li class="nav-item">
                                     <span class="text-white mr-3">Hola, <?php echo $array_User->nombre;?> </span>
-                                </li> 
-                                <li class="nav-item">
+                               
                                     <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
                                 </li> 
                             <?php  
@@ -95,7 +93,7 @@
             </header>
 
         <section class="row justify-content-center seccion">
-            <div class="col bg-white pt-4">                
+            <div class="col seccion2 pt-4">                
                 <div class="row mt-5 mb-1 text-center">
                     <div class="col-lg-4 offset-lg-4 text-center ">
                         <h3 class=" text-center  mt-5">Contacte con nosotros</h3>
@@ -104,15 +102,15 @@
 
                 <div class="row mt-5 mb-1 ">
                     
-                    <div class="col-lg-3 offset-lg-1">
+                    <div class="col-lg-3 offset-1">
                         <address>
                             <span>E-Mail: <a href="mailto:cines.la.claqueta.rota@gmail.com">cines.la.claqueta.rota@gmail.com</a> </span><br>
                             
                             <abbr>Teléfono: </abbr><span>659284353</span> <br>
                         </address>
                     </div>
-                    <div class="col-lg-5 text-center text-lg-left offset-lg-1">
-                        <form action="contactar.php" method="post"> 
+                    <div class="col-lg-5 col-9 text-center text-lg-left offset-1">
+                        <form  action="mailto:cines.la.claqueta.rota@gmail.com"  method="post">  <!-- <form  action="contactar.php"  method="post">  -->
                             <div class="form-group row">
                                 <label for="nombreUser">Nombre: </label>
                                 <input type="text" class="form-control" name="contactoUser" id="nombreUser" required placeholder="Tu Nombre">

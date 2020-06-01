@@ -25,11 +25,11 @@
 <body>
 
 
-    <div class="container-fluid bg-secondary">
+    <div class="container-fluid" id="fondo">
 
         <header class="row">
                 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">    
-                    <div class="navbar-brand d-flex w-50 mr-auto">
+                    <div class="navbar-brand d-flex w-45 mr-auto">
                         <a href="../index.php"  id="logo">
                             <img src="../img/logoW.png" id="logo_img">
                         </a>
@@ -39,6 +39,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse w-100 " id="menu">
+                        
                         <ul class="navbar-nav w-100 justify-content-center mt-2 mt-sm-0">
                             <li class="nav-item ">
                                 <a href="tarifas.php" class="nav-link">Tarifas</a>
@@ -67,42 +68,44 @@
                             }
                             ?>
                         </ul>
-                        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                        <ul class="nav navbar-nav ml-auto w-100 justify-content-end align-items-end">
                             <?php
                             if (!$Registrado) {
                             ?>
                                 <li class="nav-item">
                                     <input class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#login" type="button" value="Log-In">
-                                </li> 
-                                <li class="nav-item mt-2 mt-sm-0">
-                                    <input class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
+                                
+                                    <input class="btn btn-primary mt-2 mt-sm-0 btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
                                 </li> 
                             <?php
                             }else{                    
                             ?>
                                 <li class="nav-item">
                                     <span class="text-white mr-3">Hola, <?php echo $array_User->nombre;?> </span>
-                                </li> 
-                                <li class="nav-item">
+                               
                                     <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
                                 </li> 
                             <?php  
                             }
                             ?>
-                        </ul>
-                    </div>                
+                        </ul> 
+                    </div>   
+                    
+                                
                 </nav>
             </header>
 
         <section class="row justify-content-center seccion">
-            <div class="col bg-white pt-4">
+            <div class="col seccion2 pt-4">
                 <div class="row mt-5 mb-1 text-center">
-                    <div class="col-lg-4 offset-lg-4 text-center "><h3 class=" text-center  mt-5">Donde encontrarnos</h3></div>
+                    <div class="col-lg-4 offset-lg-4 text-center ">
+                        <h3 class=" text-center  mt-5">Donde encontrarnos</h3>
+                    </div>
                     
                 </div>
                 <div class="row mt-5 mb-1 ">
                     
-                    <div class="col-lg-3 offset-lg-2">
+                    <div class="col-lg-3 mb-3 offset-1">
                         <address>
                             <span>Multicines La claqueta Rota</span><br>
                             <span>Calle Ruiz de Alarcón Nº22</span><br>
@@ -111,8 +114,8 @@
                             <abbr>Teléfono:</abbr> <br>
                         </address>
                     </div>
-                    <div class="col-lg-5 text-center text-lg-left">
-                        <iframe class="map" id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.994079834789!2d-5.972490284735325!3d37.38997227983134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ebafeb76ea1%3A0x85eba24a3ba88e99!2sCalle%20Ruiz%20de%20Alarc%C3%B3n%2C%202%2C%2041007%20Sevilla!5e0!3m2!1ses!2ses!4v1588296880513!5m2!1ses!2ses" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    <div class="col-lg-5 col-10 offset-1 text-center text-lg-left">
+                        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1584.997001678573!2d-5.97122182803309!3d37.38997408844546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ebafeb76ea1%3A0x85eba24a3ba88e99!2sCalle%20Ruiz%20de%20Alarc%C3%B3n%2C%202%2C%2041007%20Sevilla!5e0!3m2!1ses!2ses!4v1591040230519!5m2!1ses!2ses" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                     </div>
 
                 </div>

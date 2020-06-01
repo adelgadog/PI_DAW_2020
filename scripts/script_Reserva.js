@@ -93,7 +93,7 @@ $(document).ready(function() {
             contenedorImagen.attr("class", "text-left col-md-offset-2 col-md-5 justify-content-start");
             let imagen = $("<img>");   
             imagen.attr("class", "cartelSelec offset-md-1 col-md-10");
-            imagen.attr("src", "https://m.media-amazon.com/images/"+pelicula.Cartel);
+            imagen.attr("src", pelicula.Cartel);
             contenedorImagen.append(imagen);
             let datos =  $("<div>"); 
             datos.attr("class", "card md-offset-1 col-md-5 mt-3 mt-md-0");
@@ -148,14 +148,14 @@ $(document).ready(function() {
                     elementoListaH.text(peliF.Hora);
                     $("#lista_horarios").append(elementoListaH);
                 });  // Fin For
-                
+                $("#lista_horarios").attr("value", null); 
                 if (listaProyecF.length > 5) {
                     $("#lista_horarios").attr("size", listaProyecF.length);          
                     
                 } else {
                     $("#lista_horarios").attr("size", 5);  
                 } 
-
+                $(".opcionSesion").attr('autofocus', true);
                 //////////////////////////////////////////////////////////////////////////
 
                 // Escucha al elemento select con la lista de sesiones disponibles.
@@ -163,7 +163,7 @@ $(document).ready(function() {
 
                 //////////////////////////////////////////////////////////////////////////
 
-                $(".opcionFecha").click(function(){   // Ininio Funcion Click Horario
+                $("#lista_horarios").click(function(){   // Ininio Funcion Click Horario
                     $("#disponibles").html('');  
                     $("#reservadas").html('');  
 
@@ -192,7 +192,7 @@ $(document).ready(function() {
                     texto2.text("Asientos Disponibles:");
                     cuerpo.append(texto2);
                     let texto3 = $("<p>");
-                    texto3.attr("class", "card-text");
+                    texto3.attr("class", "card-text num_disponibles");
                     texto3.text(Proyec.Disponibles);
                     cuerpo.append(texto3);
                     datos.append(cuerpo);
@@ -233,10 +233,10 @@ $(document).ready(function() {
                             let Proyec = proyecciones.find(proy => proy.id==$("#lista_horarios").val());
                             let imagen = $(".cartelSelec");
                             let contenedorImagen = $("<div>");        
-                            contenedorImagen.attr("class", "text-left offset-1  col-md-4 justify-content-start");
+                            contenedorImagen.attr("class", "text-left offset-1 col-md-4 justify-content-start");
                             contenedorImagen.append(imagen);
                             let datosFinal =  $("<div>"); 
-                            datosFinal.attr("class", "card offset-1 cardFinal col-md-4");
+                            datosFinal.attr("class", "card offset-1 mt-5 mt-md-0 cardFinal col-md-4");
                             let cabecera =  $("<div>");
                             cabecera.attr("class", "card-header");
                             let titulo = $("<h5>");
@@ -295,9 +295,9 @@ $(document).ready(function() {
                                     error(xhr,status,error){console.log("nope");
                                     },
                                     success: function (data) {
-                                        alert(data);
+                                       //alert(data);
                                        // console.log(data)
-                                       //window.location.href="../contenido/valoracion.php";
+                                       window.location.href="../contenido/valoracion.php";
                                     }
                                 });   
                             });  
@@ -335,15 +335,17 @@ $(document).ready(function() {
     
     $(".sesionSig").click(function(){ // Boton Siguiente Panel Sesión
         if (getCookie("usuario_cine")==-1) { // A partir de esta pestaña se necesita estar registrado para acceder
-            alert("Necesita estar registrado para continuar.");
+            $('#login').modal('show');
         }else{      
-            if ($("#lista_sesiones").val()!=null) { 
+            if ($("#lista_sesiones").val()!=null && $("#disponibles").find("div").length > 0) { 
                 $(".link_asiento").toggleClass("active show");
                 $(".link_sesion").toggleClass("active show");
                 $("#asientos").toggleClass("active show");
                 $("#sesion").toggleClass("active show");
-                $("#lista_Peliculas").removeClass("border border-danger"); 
-            }  else {               
+                $("#lista_Peliculas").removeClass("border border-danger");
+            }else if ($("#disponibles").find("div").length == 0){
+                $("#lista_horarios").toggleClass("border border-danger"); 
+            } else {               
                 $("#lista_sesiones").toggleClass("border border-danger");    
             }
         }   
@@ -363,7 +365,7 @@ $(document).ready(function() {
     });   
 
     $(".asientosSig").click(function(){ // Boton Siguiente Panel Butacas  
-        if ($("#cantidad").val()!=null) {
+        if ($("#cantidad").val()!=null && $("#cantidad").val()<=parseInt($(".num_disponibles").text()) && $("#cantidad").val()>=1) {
             $(".link_asiento").toggleClass("active show");
             $(".link_check").toggleClass("active show");
             $("#asientos").toggleClass("active show");

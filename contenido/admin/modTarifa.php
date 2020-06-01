@@ -32,15 +32,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Añadir Película</title>
+    <title>Admin: Actualizar Tarifa</title>
     <link rel="stylesheet" href="../../styles/styleAdmin.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
         function goBack() {
             window.location.replace("adminTarifas.php");
         }
     </script>
 </head>
-<body>  
+<body class="fondo">  
     <?php
         if (!empty($_GET["accion"])) {
             $accion=$_GET["accion"];
@@ -54,7 +58,7 @@
     ?>
     <form action="upTarifa.php" method="post">
         <table class="tablaAdminPelicula">
-            <th class="tablaAdminPelicula_th" colspan=6><span>Formulario de Administración de Películas</span></th>
+            <th class="tablaAdminPelicula_th" colspan=2><span>Formulario de Actualización de Tarifa</span></th>
                     
                     <tr>
                             <td><span>Definición:</span></td>

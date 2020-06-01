@@ -6,7 +6,7 @@
     ?>
     <article class="modal fade " id="<?php echo $pelis->id; ?>">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content modal_completo">
                 <div class="modal-header">
                     <span data-dismiss="modal" class="close">X</span>
                 </div>               
@@ -16,22 +16,25 @@
                             <div class="contenedor_nota ">
                                 <img class="card-img-top" src="../img/<?php
                                     switch($pelis->Valoracion) {
-                                    case ($pelis->Valoracion>6): 
-                                        echo "verde.png";
+                                        case ($pelis->Valoracion===null): 
+                                            echo "NA";
                                         break;
-                                    case ($pelis->Valoracion>3&&$pelis->Valoracion<=6): 
-                                        echo "amarillo.png";
+                                        case ($pelis->Valoracion>7&&$pelis->Valoracion<=10): 
+                                            echo "verde.png";
                                         break;
-                                    default:
-                                        echo "rojo.png";
+                                        case ($pelis->Valoracion>4&&$pelis->Valoracion<=7): 
+                                            echo "amarillo.png";
+                                        break;
+                                        case ($pelis->Valoracion>0&&$pelis->Valoracion<=4): 
+                                            echo "rojo.png";
                                         break;  
                                     }
                                 ?>" id="nota">
-                                <h3 class="n_nota justify-content-end"><?php echo $pelis->Valoracion; ?></h3>
+                                <h3 class="n_nota justify-content-end"><?php echo round($pelis->Valoracion, 1);?></h3>
                             </div>       
                         </div>             
 
-                        <img class="card-img-top" src="https://m.media-amazon.com/images/<?php echo $pelis->Cartel; ?>" id="imgTarjeta">
+                        <img class="card-img-top" src="<?php echo $pelis->Cartel; ?>" id="imgTarjeta">
                         <div class="card-body">
                             <h3 class="card-title"><?php echo $pelis->Titulo; ?></h3>
                             <h5 class="card-subtitle">Año: <?php echo $pelis->Año; ?> </h5>

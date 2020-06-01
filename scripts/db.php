@@ -45,8 +45,8 @@
 
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
-        //  
+        //  Esta función comprueba que el correo introducido en el registro
+        //  no se encuentre ya guardado en la BBDD.
         //
         //////////////////////////////////////////////////////////////////////////        
 
@@ -96,7 +96,8 @@
 
         //////////////////////////////////////////////////////////////////////////
         //
-        // 
+        //  Función para recoger las tres ultias peliculas añadidas a la BBDD
+        //  para mostrarlas en la pagina de Inicio.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -230,7 +231,10 @@
             $total=$precio*$butacas;
             $sql = "INSERT INTO `reserva`(`idUsuario`, `idProyección`, `Butacas`) VALUES ('".$userId."','".$proyec."','".$butacas."')";
             $result = DB::Ejecutar($sql); 
-            if($result) {
+            
+            // Codigo para enviar correos desde la pagina. Aun no es funcional.
+
+           /* if($result) {
                 $to = $usuario->mail;
                 $subject = "Entradas de Cine La Claqueta Rota";
                 $message = "Gracias por comprar en Cine La Claqueta Rota.\n
@@ -251,13 +255,18 @@
                 ini_set("sendmail_from", "laclaqueta@rota.com");
                 mail($to, $subject, $message, $headers);
                // claqueta1920
-            }
+            }*/
             return $result; 
         }
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Función que devuelve la información de todas las reservas realizadas
+        //  por un usuario, asi como su valoración de la pelicula asociada 
+        //  (si la hubiera), y la fecha de la proyección que reservo.
+        //  Todo esto se ordena por fecha y se retiran las peliculas duplicadas,
+        //  para que el usuario puede asignarle una nota de valoración ó modificar
+        //  la que ya le asigno.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -301,8 +310,8 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
-        //  
+        //  Recupera la valoración asignada por un usuario a una pelicula 
+        //  concreta.
         //
         //////////////////////////////////////////////////////////////////////////
         
@@ -318,9 +327,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Guarda en la BBDD un nuevo registro de pelicula.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function SetPelicula($año, $titulo, $pais, $genero, $duracion, $estreno, $calificacion, $sinopsis, $cartel, $video){
@@ -337,7 +346,7 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Recupera todos los datos de la Tabla Salas.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -354,7 +363,7 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Guarda en la BBDD un nuevo registro de Proyección.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -371,7 +380,7 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Guarda en la BBDD un nuevo registro de Tarífa.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -388,7 +397,12 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Función que elimina de la BBDD un registro de pelicula. 
+        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
+        //  los demas registros deben ser borrados antes de borar de la propia
+        //  tabla peliculas. Estas tablas asociadas son: Valoración, Reserva y
+        //  Proyección. Una vez se han borrado todas las referencias a una
+        //  pelicula, esta puede ser borrada de la tabla Peliculas.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -409,9 +423,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Actualiza la informacion de una pelicula en la Tabla Peliculas.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function updatePelicula($id, $año, $titulo, $pais, $genero, $duracion, $estreno, $calificacion, $sinopsis, $cartel, $video){
@@ -430,7 +444,12 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Función que elimina de la BBDD un registro de tarifa. 
+        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
+        //  los demas registros deben ser borrados antes de borar de la propia
+        //  tabla Tarifas. Estas tablas asociadas son: Reserva y
+        //  Proyección. Una vez se han borrado todas las referencias a una
+        //  tarifa, esta puede ser borrada de la tabla Tarifas.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -449,9 +468,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Actualiza la informacion de una tarífa en la Tabla Tarífas.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function updateTarifa($id, $def, $desc, $precio){
@@ -468,7 +487,12 @@
         
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
+        //  Función que elimina de la BBDD un registro de proyección. 
+        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
+        //  los demas registros deben ser borrados antes de borar de la propia
+        //  tabla Proyecciones. Estas tabla asociada es: Reserva. 
+        //  Una vez se ha borrado esta referencia a una
+        //  proyección, esta puede ser borrada de la tabla Proyecciones.
         //
         //////////////////////////////////////////////////////////////////////////
 
@@ -485,9 +509,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Actualiza la informacion de una proyección en la Tabla Proyecciones.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function updateProyeccion($id, $sala, $peli, $tarifa, $fecha, $hora){
@@ -504,8 +528,7 @@
 
         //////////////////////////////////////////////////////////////////////////
         //
-        //  
-        //  
+        //  Función que devuelve todos los datos de la tabla Usuarios.  
         //
         //////////////////////////////////////////////////////////////////////////        
 
@@ -524,9 +547,14 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función que elimina de la BBDD un registro de usuario. 
+        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
+        //  los demas registros deben ser borrados antes de borar de la propia
+        //  tabla Usuarios. Estas tabla asociada es: Valoraciones y Reservas. 
+        //  Una vez se ha borrado estas referencias a un
+        //  usuario, este puede ser borrado de la tabla Usuarios.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Dell_Usuario($id){
@@ -542,9 +570,10 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función que elimina todos los registros asociados con un usuario
+        //  de la tabla Reservas.  
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Dell_Reservas($id){
@@ -558,9 +587,10 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función que elimina todos los registros asociados con un usuario
+        //  de la tabla Valoración.  
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Dell_Nota($id){
@@ -574,9 +604,10 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función que modifica el campo Admin de un usuario en la tabla Usuario,
+        //   para otorgar o retirar acceso de Administrador a la web.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function mod_Admin($id, $admin){
@@ -590,9 +621,10 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función que actualiza la nota ya asignada por un usuario concreto a
+        //  una pelicula concreta.
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Up_Nota($usr, $peli, $nota){
@@ -606,9 +638,9 @@
         }
         
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  Función que asigna una nota a una pelicula concreta por un usuario concreto
+        //
         //////////////////////////////////////////////////////////////////////////
         
         public static function Set_Nota($usr, $peli, $nota){
@@ -622,9 +654,9 @@
         }
 
         //////////////////////////////////////////////////////////////////////////
-
-
-        
+        //
+        //  ¡¡¡ SCRIPT END !!!
+        //
         //////////////////////////////////////////////////////////////////////////
 
     }

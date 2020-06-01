@@ -21,29 +21,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Añadir Película</title>
+    <title>Admin: Administrar Usuarios</title>
     <link rel="stylesheet" href="../../styles/styleAdmin.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
         function goBack() {
             window.close();
         }
     </script>
 </head>
-<body>  
+<body class="fondo">  
     <?php
         if (!empty($_GET["accion"])) {
             $accion=$_GET["accion"];
             if ($accion=="-1") {
-                ?> <h3>Ha surguido un problema y no se ha podido realizar la operación</h3> <?php
+                ?> <h3 class="h3 text-warning text-center">Ha surguido un problema y no se ha podido realizar la operación</h3> <?php
             } else {                
-                ?> <h3>Operación realizada con exito.</h3> <?php
+                ?> <h3 class="h3 text-success text-center">Operación realizada con exito.</h3> <?php
             }
             
         } 
     ?>
     
         <table class="tablaAdminPelicula">
-            <th class="tablaAdminPelicula_th" colspan=6><span>Formulario de Administración de Usuarios</span></th>
+            <th class="tablaAdminPelicula_th" colspan=6><span>Administración de Usuarios</span></th>
             <tr>
                 <td>Id</td>
                 <td>Nombre</td>

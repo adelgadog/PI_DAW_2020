@@ -9,7 +9,8 @@ $(document).ready(function () {
 
    $(".b_login").click(function(){  
         if ( $("#correo_L").val()=='' || $("#password_L").val()=='') {
-            alert("Necesita rellenar todos los campos.");
+            $(".correo_vacio").text("Necesita rellenar todos los campos.");
+            //alert("Necesita rellenar todos los campos.");
         } else {           
             Chequear($("#correo_L").val(), $("#password_L").val(), $('#remember').prop('checked'));            
         }
@@ -23,9 +24,12 @@ $(document).ready(function () {
 
     $("#b_registro").click(function(){  
         if ($("#Pass_R").val().length<8) {
-            alert("La contraseña debe ser mayor de 8 caracteres.");
+            $(".psw_corta").text("La contraseña debe ser mayor de 8 caracteres.");
+            //alert("La contraseña debe ser mayor de 8 caracteres.");
         } else if ($("#Pass_R").val()!=$("#Pass_R2").val()){          
-            alert("Las contraseñas deben coincidir.");
+            $(".psw_corta").text("");
+            $(".psw_repe").text("Las contraseñas deben coincidir.");
+            //alert("Las contraseñas deben coincidir.");
         } else {
             Chequear_R($("#Usuario_R").val(), $("#Pass_R").val(), $("#Mail_R").val());                   
         }
@@ -48,7 +52,6 @@ $(document).ready(function () {
             data: {mail:Mail,funcion:"funcion6"},
             error(xhr,status,error){
                 console.log("nope_Registro_1");
-                alert("fallo");
             },
             success: function (jsonStr) {
                 //alert("entra");
@@ -57,7 +60,10 @@ $(document).ready(function () {
                 let json = JSON.parse(jsonStr);
                 if (jsonStr=="1") {
                     console.log("falso");
-                    alert("Ese E-Mail ya esta registrado."); 
+                    $(".psw_corta").text("");
+                    $(".psw_repe").text("");
+                    $(".correo_repe").text("Ese E-Mail ya esta registrado.");
+                    //alert("Ese E-Mail ya esta registrado."); 
                 }else{
                     console.log("cierto");
                     Registrar(User, Pass, Mail);   
@@ -132,7 +138,7 @@ $(document).ready(function () {
                 var expira = "; expires="+d.toUTCString();
                 let json = JSON.parse(jsonStr);       
                 let cookie="usuario_cine="+JSON.stringify(json);
-                alert(cookie);
+                //alert(cookie);
                 document.cookie ="usuario_cine="+JSON.stringify(json);
                 window.location.reload();
                                 

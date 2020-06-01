@@ -42,6 +42,7 @@
                         <div class="form-label-group">
                             <label for="correo" class="col-form-label">Correo electrónico:</label>
                             <input type="email" id="correo_L" name="correo" class="form-control" placeholder="Correo electrónico" autofocus required>
+                            <span class="text-danger ml-3  correo_vacio"></span>
                         </div>
 
                         <div class="form-label-group">
@@ -81,16 +82,19 @@
                         <div class="form-label-group">
                             <label for="mail" class="col-form-label">Correo electrónico:</label>
                             <input type="email" id="Mail_R" name="correo" class="form-control" placeholder="Dirección de correo electrónico" autofocus required>
+                            <span class="text-danger ml-3  correo_repe"></span>
                         </div>
 
                         <div class="form-label-group">                            
                             <label for="psw1" class="col-form-label">Contraseña:</label>
                             <input type="password" id="Pass_R" name="password" class="form-control" placeholder="Contraseña">
+                            <span class="text-danger ml-3 psw_corta"></span>
                         </div>
 
                         <div class="form-label-group">        
                             <label for="psw2" class="col-form-label">Repita Contraseña:</label>
                             <input type="password" id="Pass_R2" name="password" class="form-control" placeholder="Contraseña">
+                            <span class="text-danger ml-3  psw_repe"></span>
                         </div>
 
                     </div>

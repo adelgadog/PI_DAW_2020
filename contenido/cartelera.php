@@ -31,11 +31,11 @@
 <body>
 
 
-    <div class="container-fluid bg-secondary">
+    <div class="container-fluid" id="fondo">
 
         <header class="row">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">    
-                <div class="navbar-brand d-flex w-50 mr-auto">
+                <div class="navbar-brand d-flex w-45 mr-auto">
                     <a href="../index.php"  id="logo">
                         <img src="../img/logoW.png" id="logo_img">
                     </a>
@@ -73,25 +73,23 @@
                         }
                         ?>
                     </ul>
-                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end align-items-end">
                         <?php
                         if (!$Registrado) {
                         ?>
-                            <li class="nav-item">
-                                <input class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#login" type="button" value="Log-In">
-                            </li> 
-                            <li class="nav-item mt-2 mt-sm-0">
-                                <input class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
-                            </li> 
-                        <?php
-                        }else{                    
-                        ?>
-                            <li class="nav-item">
-                            <span class="text-white mr-3">Hola, <?php echo $array_User->nombre;?> </span>
-                            </li> 
-                            <li class="nav-item">
-                                <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
-                            </li> 
+                             <li class="nav-item">
+                                    <input class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#login" type="button" value="Log-In">
+                                
+                                    <input class="btn btn-primary mt-2 mt-sm-0 btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
+                                </li> 
+                            <?php
+                            }else{                    
+                            ?>
+                                <li class="nav-item">
+                                    <span class="text-white mr-3">Hola, <?php echo $array_User->nombre;?> </span>
+                               
+                                    <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
+                                </li> 
                         <?php  
                         }
                         ?>
@@ -101,7 +99,7 @@
         </header>
 
         <section class="row justify-content-center seccion">
-            <div class="col bg-white pt-4">
+            <div class="col seccion2 pt-4">
                 <div class="row mt-4 mb-1 justify-content-center">
                     <h3 class="text-center mt-5">Cartelera</h3>
                 </div>
@@ -111,7 +109,7 @@
                     ?>
                     <div class="tarjeta_pelicula">   <!--Inicio tarjeta pelicula -->
                         <div class="card datos" data-toggle="modal" data-target="#<?php echo $pelis->id; ?>">
-                            <img class=" btn card-img-top"  src="https://m.media-amazon.com/images/<?php echo $pelis->Cartel; ?>" id="imgTarjeta">
+                            <img class=" btn card-img-top"  src="<?php echo $pelis->Cartel; ?>" id="imgTarjeta">
                             <div class="card-body">
                                 <h3 class="card-title"><?php echo $pelis->Titulo; ?></h3>
                                 <h5 class="card-subtitle">Año: <?php echo $pelis->Año; ?> </h5>
