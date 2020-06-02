@@ -558,9 +558,18 @@
         
         public static function Dell_Usuario($id){
             $sql = "DELETE FROM `usuario` WHERE `idCliente`='".$id."'";
-            Dell_Nota($id);
-            Dell_Reservas($id);
-            $result = DB::Ejecutar($sql);  
+            $nota = DB::Dell_Nota($id);
+            $reserva= DB::Dell_Reservas($id);
+            if ($nota==1 && $reserva==1) {
+                $result = DB::Ejecutar($sql); 
+            } else {
+                if ($nota==1) {
+                    return "Nota no es";
+                } else {
+                    
+                    return "reserva no es";
+                }                
+            }             
             if ($result) {  
                 return 1; 
             } else {
@@ -575,9 +584,15 @@
         //
         //////////////////////////////////////////////////////////////////////////
         
-        public static function Dell_Reservas($id){
-            $sql = "DELETE FROM `reserva` WHERE `idUsuario`'".$id."'";
-            $result = DB::Ejecutar($sql);  
+        public static function Dell_Reservas($id){            
+            $sql1 = "SELECT * FROM `reserva` WHERE `idUsuario`='".$id."'";
+            $result1 = DB::Ejecutar($sql1); 
+            if ($result1->rowCount()>0) { 
+                $sql = "DELETE FROM `reserva` WHERE `idUsuario`='".$id."'";
+                $result = DB::Ejecutar($sql);
+            } else {               
+                return 1; 
+            }    
             if ($result) {  
                 return 1; 
             } else {
@@ -593,8 +608,14 @@
         //////////////////////////////////////////////////////////////////////////
         
         public static function Dell_Nota($id){
-            $sql = "DELETE FROM `valoración` WHERE `idUsuario`='".$id."'";
-            $result = DB::Ejecutar($sql);  
+            $sql1 = "SELECT * FROM `valoración` WHERE `idUsuario`='".$id."'";
+            $result1 = DB::Ejecutar($sql1); 
+            if ($result1->rowCount()>0) {                
+                $sql = "DELETE FROM `valoración` WHERE `idUsuario`='".$id."'";
+                $result = DB::Ejecutar($sql);  
+            } else {                
+                return 1; 
+            }            
             if ($result) {  
                 return 1; 
             } else {

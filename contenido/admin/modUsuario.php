@@ -16,6 +16,7 @@
         if (!empty($_POST["borrar"])) {
             require_once '../../scripts/db.php';
             $insert = DB::Dell_Usuario($_POST["id"]);
+            //var_dump($insert);
             if ($insert==-1) {
                header( "Location: adminUsuarios.php?accion=-1");
             } else {

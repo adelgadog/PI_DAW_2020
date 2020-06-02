@@ -115,7 +115,7 @@
                         <div class="card mb-5 tarjeta_valora " >
                             <div class="row no-gutters cont_tarjeta_valora">
                                 <div class="col-md-4 img_valorar">
-                                    <img src="<?php echo $reserva->cartel; ?>" id="imgTarjeta" class="card-img" alt="...">
+                                    <img src="<?php echo $reserva->cartel; ?>" id="imgTarjetaNota" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8 ">
                                     <form action="valora.php" method="post">
