@@ -53,6 +53,9 @@
                             <label for="remember" class="col-form-label">Recuerdame:</label>
                             <input type="checkbox" name="remember" id="remember">
                         </div>
+                        <div class="d-flex justify-content-center">
+                            <span class="text-danger login_mal"></span>
+                        </div>
                     </div>
                     <div class="modal-footer">                          
                         <button type="button" name="entrar" id="b_login" class="btn btn-success b_login">Entrar</button>

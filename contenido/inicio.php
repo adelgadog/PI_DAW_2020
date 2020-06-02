@@ -35,7 +35,7 @@
 
         <header class="row">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">    
-                <div class="navbar-brand d-flex w-45 mr-auto">
+                <div class="navbar-brand d-flex mr-5 w-45 mr-auto">
                     <a href="../index.php"  id="logo">
                         <img src="../img/logoW.png" id="logo_img">
                     </a>
@@ -44,8 +44,8 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse w-100 " id="menu">
-                    <ul class="navbar-nav w-100 justify-content-center mt-2 mt-sm-0">
+                <div class="collapse navbar-collapse ml-mg-5 ml-3  w-100 " id="menu">
+                    <ul class="navbar-nav menu_1_ul w-100 mr-lg-1 pr-5 justify-content-end mt-2 mt-sm-0">
                         <li class="nav-item ">
                             <a href="tarifas.php" class="nav-link">Tarifas</a>
                         </li>
@@ -73,7 +73,7 @@
                         }
                         ?>
                     </ul>
-                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end align-items-end">
+                    <ul class="nav navbar-nav menu_2_ul ml-auto w-100 justify-content-end align-items-end">
                         <?php
                         if (!$Registrado) {
                         ?>

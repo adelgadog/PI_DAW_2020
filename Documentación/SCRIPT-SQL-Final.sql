@@ -27,6 +27,8 @@ DROP SCHEMA IF EXISTS `Cine` ;
 --
 -- Base de datos: `cine`
 --
+
+DROP DATABASE IF EXISTS `cine`;
 CREATE DATABASE IF NOT EXISTS `cine` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `cine`;
 
@@ -57,11 +59,11 @@ CREATE TABLE IF NOT EXISTS `pelicula` (
 --
 
 INSERT INTO `pelicula` (`idPelicula`, `Año`, `Título`, `País`, `Género`, `Duración`, `Fecha de Estreno`, `Calificación`, `Sinopsis`, `Cartel`, `Video`) VALUES
-(1, '2018', 'Vengadores: Infinity War', 'Estados Unidos', 'Ciencia ficción', '149 minutos', '27 de abril de 2018', 'PG-13', 'El todopoderoso Thanos ha despertado con la promesa de arrasar con todo a su paso, portando el Guantelete del Infinito, que le confiere un poder incalculable. Los únicos capaces de pararle los pies son los Vengadores y el resto de superhéroes de la galaxia, que deberán estar dispuestos a sacrificarlo todo por un bien mayor. Capitán América e Ironman deberán limar sus diferencias, Black Panther apoyará con sus tropas desde Wakanda, Thor y los Guardianes de la Galaxia e incluso Spider-Man se unirán antes de que los planes de devastación y ruina pongan fin al universo. ¿Serán capaces de frenar el avance del titán del caos?', 'M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SY1000_CR0,0,674,1000_AL_.jpg', 'https://www.youtube.com/embed/-f5PwE_Q8Fs'),
-(2, '2019', 'Vengadores: Endgame', 'Estados Unidos', 'Ciencia ficción', '181 minutos', '26 de abril de 2019', 'PG-13', 'Después de los eventos devastadores de \"Avengers: Infinity War\", el universo está en ruinas debido a las acciones de Thanos, el Titán Loco. Con la ayuda de los aliados que quedaron, los Vengadores deberán reunirse una vez más para intentar deshacer sus acciones y restaurar el orden en el universo de una vez por todas, sin importar cuáles son las consecuencias... Cuarta y última entrega de la saga \"Vengadores\".', 'M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SY1000_CR0,0,674,1000_AL_.jpg', 'https://www.youtube.com/embed/svLSGZkTzC0'),
-(3, '2001', 'ESDLA: La comunidad del anillo', 'Nueva Zelanda', 'Fantástico, Aventuras.', '180 min.', '19 de diciembre de 2001 ', 'PG-13', 'En la Tierra Media, el Señor Oscuro Saurón ordenó a los Elfos que forjaran los Grandes Anillos de Poder. Tres para los reyes Elfos, siete para los Señores Enanos, y nueve para los Hombres Mortales. Pero Saurón también forjó, en secreto, el Anillo Único, que tiene el poder de esclavizar toda la Tierra Media. Con la ayuda de sus amigos y de valientes aliados, el joven hobbit Frodo emprende un peligroso viaje con la misión de destruir el Anillo Único. Pero el malvado Sauron ordena la persecución del grupo, compuesto por Frodo y sus leales amigos hobbits, un mago, un hombre, un elfo y un enano. La misión es casi suicida pero necesaria, pues si Sauron con su ejército de orcos lograra recuperar el Anillo, sería el final de la Tierra Media.', 'M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SY999_CR0,0,673,999_AL_.jpg', 'https://www.youtube.com/embed/V75dMMIW2B4'),
-(4, '2002', 'ESDLA: Las dos torres', 'Nueva Zelanda', 'Fantástico, Aventuras', '179 min.', '18 Diciembre 2002 ', 'PG-13', 'Tras la disolución de la Compañía del Anillo, Frodo y su fiel amigo Sam se dirigen hacia Mordor para destruir el Anillo Único y acabar con el poder de Sauron, pero les sigue un siniestro personaje llamado Gollum. Mientras, y tras la dura batalla contra los orcos donde cayó Boromir, el hombre Aragorn, el elfo Legolas y el enano Gimli intentan rescatar a los medianos Merry y Pipin, secuestrados por los orcos de Mordor. Por su parte, Saurón y el traidor Sarumán continúan con sus planes en Mordor, a la espera de la guerra contra las razas libres de la Tierra Media.', 'M/MV5BNGE5MzIyNTAtNWFlMC00NDA2LWJiMjItMjc4Yjg1OWM5NzhhXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,684,1000_AL_.jpg', 'https://www.youtube.com/embed/hYcw5ksV8YQ'),
-(5, '2003', 'ESDLA: El retorno del rey', 'Nueva Zelanda', 'Fantástico, Aventuras.', '201 min.', '17 Diciembre2003', 'PG-13', 'Las fuerzas de Saruman han sido destruidas, y su fortaleza sitiada. Ha llegado el momento de decidir el destino de la Tierra Media, y, por primera vez, parece que hay una pequeña esperanza. El interés del señor oscuro Sauron se centra ahora en Gondor, el último reducto de los hombres, cuyo trono será reclamado por Aragorn. Sauron se dispone a lanzar un ataque decisivo contra Gondor. Mientras tanto, Frodo y Sam continuan su camino hacia Mordor, con la esperanza de llegar al Monte del Destino.', 'M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.youtube.com/embed/r5X-hFf6Bwo');
+(1, '2018', 'Vengadores: Infinity War', 'Estados Unidos', 'Ciencia ficción', '149 minutos', '27 de abril de 2018', 'PG-13', 'El todopoderoso Thanos ha despertado con la promesa de arrasar con todo a su paso, portando el Guantelete del Infinito, que le confiere un poder incalculable. Los únicos capaces de pararle los pies son los Vengadores y el resto de superhéroes de la galaxia, que deberán estar dispuestos a sacrificarlo todo por un bien mayor. Capitán América e Ironman deberán limar sus diferencias, Black Panther apoyará con sus tropas desde Wakanda, Thor y los Guardianes de la Galaxia e incluso Spider-Man se unirán antes de que los planes de devastación y ruina pongan fin al universo. ¿Serán capaces de frenar el avance del titán del caos?', 'https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SY1000_CR0,0,674,1000_AL_.jpg', 'https://www.youtube.com/embed/-f5PwE_Q8Fs'),
+(2, '2019', 'Vengadores: Endgame', 'Estados Unidos', 'Ciencia ficción', '181 minutos', '26 de abril de 2019', 'PG-13', 'Después de los eventos devastadores de \"Avengers: Infinity War\", el universo está en ruinas debido a las acciones de Thanos, el Titán Loco. Con la ayuda de los aliados que quedaron, los Vengadores deberán reunirse una vez más para intentar deshacer sus acciones y restaurar el orden en el universo de una vez por todas, sin importar cuáles son las consecuencias... Cuarta y última entrega de la saga \"Vengadores\".', 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SY1000_CR0,0,674,1000_AL_.jpg', 'https://www.youtube.com/embed/svLSGZkTzC0'),
+(3, '2001', 'ESDLA: La comunidad del anillo', 'Nueva Zelanda', 'Fantástico, Aventuras.', '180 min.', '19 de diciembre de 2001 ', 'PG-13', 'En la Tierra Media, el Señor Oscuro Saurón ordenó a los Elfos que forjaran los Grandes Anillos de Poder. Tres para los reyes Elfos, siete para los Señores Enanos, y nueve para los Hombres Mortales. Pero Saurón también forjó, en secreto, el Anillo Único, que tiene el poder de esclavizar toda la Tierra Media. Con la ayuda de sus amigos y de valientes aliados, el joven hobbit Frodo emprende un peligroso viaje con la misión de destruir el Anillo Único. Pero el malvado Sauron ordena la persecución del grupo, compuesto por Frodo y sus leales amigos hobbits, un mago, un hombre, un elfo y un enano. La misión es casi suicida pero necesaria, pues si Sauron con su ejército de orcos lograra recuperar el Anillo, sería el final de la Tierra Media.', 'https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SY999_CR0,0,673,999_AL_.jpg', 'https://www.youtube.com/embed/V75dMMIW2B4'),
+(4, '2002', 'ESDLA: Las dos torres', 'Nueva Zelanda', 'Fantástico, Aventuras', '179 min.', '18 Diciembre 2002 ', 'PG-13', 'Tras la disolución de la Compañía del Anillo, Frodo y su fiel amigo Sam se dirigen hacia Mordor para destruir el Anillo Único y acabar con el poder de Sauron, pero les sigue un siniestro personaje llamado Gollum. Mientras, y tras la dura batalla contra los orcos donde cayó Boromir, el hombre Aragorn, el elfo Legolas y el enano Gimli intentan rescatar a los medianos Merry y Pipin, secuestrados por los orcos de Mordor. Por su parte, Saurón y el traidor Sarumán continúan con sus planes en Mordor, a la espera de la guerra contra las razas libres de la Tierra Media.', 'https://m.media-amazon.com/images/M/MV5BNGE5MzIyNTAtNWFlMC00NDA2LWJiMjItMjc4Yjg1OWM5NzhhXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,684,1000_AL_.jpg', 'https://www.youtube.com/embed/hYcw5ksV8YQ'),
+(5, '2003', 'ESDLA: El retorno del rey', 'Nueva Zelanda', 'Fantástico, Aventuras.', '201 min.', '17 Diciembre2003', 'PG-13', 'Las fuerzas de Saruman han sido destruidas, y su fortaleza sitiada. Ha llegado el momento de decidir el destino de la Tierra Media, y, por primera vez, parece que hay una pequeña esperanza. El interés del señor oscuro Sauron se centra ahora en Gondor, el último reducto de los hombres, cuyo trono será reclamado por Aragorn. Sauron se dispone a lanzar un ataque decisivo contra Gondor. Mientras tanto, Frodo y Sam continuan su camino hacia Mordor, con la esperanza de llegar al Monte del Destino.', 'https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.youtube.com/embed/r5X-hFf6Bwo');
 
 -- --------------------------------------------------------
 
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `proyeccion` (
   KEY `idPelicula_idx` (`idPelicula`),
   KEY `idSala_idx` (`IdSala`),
   KEY `idTipo_idx` (`idTipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proyeccion`
@@ -95,7 +97,8 @@ INSERT INTO `proyeccion` (`idProyeccion`, `IdSala`, `idPelicula`, `idTipo`, `Fec
 (5, 3, 2, 2, '2020-06-30', '20:00:00'),
 (6, 1, 3, 1, '2020-06-29', '20:00:00'),
 (7, 3, 4, 3, '2020-06-28', '12:00:00'),
-(8, 1, 5, 2, '2020-06-30', '17:00:00');
+(8, 1, 5, 2, '2020-06-30', '17:00:00'),
+(9, 3, 1, 1, '2020-04-30', '20:00:00');
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   PRIMARY KEY (`idReserva`,`idUsuario`,`idProyección`),
   KEY `idUsuario_idx` (`idUsuario`),
   KEY `idProyección_idx` (`idProyección`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `reserva`
@@ -121,7 +124,8 @@ CREATE TABLE IF NOT EXISTS `reserva` (
 INSERT INTO `reserva` (`idReserva`, `idUsuario`, `idProyección`, `Butacas`) VALUES
 (1, 2, 1, 4),
 (2, 2, 2, 5),
-(3, 2, 4, 3);
+(3, 2, 4, 3),
+(4, 1, 9, 2);
 
 -- --------------------------------------------------------
 

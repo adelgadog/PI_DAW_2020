@@ -111,9 +111,11 @@ $(document).ready(function () {
                     var expira = "; expires="+d.toUTCString();
                 }
                 if (json!=-1) {
-                    document.cookie ="usuario_cine="+JSON.stringify(json)+ expira;                
-                }     
-                window.location.reload();           
+                    document.cookie ="usuario_cine="+JSON.stringify(json)+ expira;    
+                    window.location.reload();            
+                }  else{
+                    $(".login_mal").text("Correo o Contraseña incorrectos");
+                }            
             }
         }); 
     }

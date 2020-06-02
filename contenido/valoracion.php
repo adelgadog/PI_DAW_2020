@@ -37,9 +37,9 @@
 
     <div class="container-fluid" id="fondo">
 
-        <header class="row">
+    <header class="row">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">    
-                <div class="navbar-brand d-flex w-45 mr-auto">
+                <div class="navbar-brand d-flex mr-5 w-45 mr-auto">
                     <a href="../index.php"  id="logo">
                         <img src="../img/logoW.png" id="logo_img">
                     </a>
@@ -48,8 +48,8 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse w-100 " id="menu">
-                    <ul class="navbar-nav w-100 justify-content-center mt-2 mt-sm-0">
+                <div class="collapse navbar-collapse ml-mg-5 ml-3  w-100 " id="menu">
+                    <ul class="navbar-nav menu_1_ul w-100 mr-lg-1 pr-5 justify-content-end mt-2 mt-sm-0">
                         <li class="nav-item ">
                             <a href="tarifas.php" class="nav-link">Tarifas</a>
                         </li>
@@ -58,13 +58,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="reservas.php" class="nav-link " >Reservar</a>
+                            <a href="reservas.php" class="nav-link" >Reservar</a>
                         </li>
                         <?php
                         if ($Registrado){
                         ?>
                         <li class="nav-item">
-                            <a href="valoracion.php" class="nav-link active">Valorar</a>
+                            <a href="valoracion.php" class="nav-link">Valorar</a>
                         </li> 
                         <?php
                         }
@@ -77,11 +77,11 @@
                         }
                         ?>
                     </ul>
-                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end align-items-end">
+                    <ul class="nav navbar-nav menu_2_ul ml-auto w-100 justify-content-end align-items-end">
                         <?php
                         if (!$Registrado) {
                         ?>
-                            <li class="nav-item">
+                             <li class="nav-item">
                                     <input class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#login" type="button" value="Log-In">
                                 
                                     <input class="btn btn-primary mt-2 mt-sm-0 btn-sm" data-toggle="modal" data-target="#registrar" type="button" value="Registrarse">
@@ -112,14 +112,14 @@
                             
                             foreach ($array_reservas as $reserva) {
                         ?><div class="container"><div class="row justify-content-center">
-                        <div class="card mb-3" style="width: 45%;">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
+                        <div class="card mb-5 tarjeta_valora " >
+                            <div class="row no-gutters cont_tarjeta_valora">
+                                <div class="col-md-4 img_valorar">
                                     <img src="<?php echo $reserva->cartel; ?>" id="imgTarjeta" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8 ">
                                     <form action="valora.php" method="post">
-                                        <div class="card-body ml-2 nota_cuerpo" style="min-height: 13em;">
+                                        <div class="card-body ml-2 nota_cuerpo">
                                             <h5 class="card-title"><?php echo $reserva->titulo; ?></h5>
                                             <h5 class="card-subtitle mb-3">Fecha: <?php echo $reserva->fecha; ?>
                                             <div class="container mt-4 ml-md-3">
@@ -135,7 +135,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer pie_valora">
                                             <div class="anuncio_<?php echo $reserva->pelicula; ?>" id="anuncio_<?php echo $reserva->pelicula; ?>"><p class="card-text ">Pon o cambia tu nota.</p></div>
                                             <div class=" modificar_<?php echo $reserva->pelicula; ?> oculto" id="modificar_<?php echo $reserva->pelicula; ?>">
                                                 <div class="d-flex justify-content-between">

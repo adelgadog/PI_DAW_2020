@@ -211,9 +211,48 @@
 	Oculto se utiliza para mostrar la nota que se quiere variar 
 	y ocultar el mensaje que se muestra previamente.
 */
+
+@media only screen and (min-width: 766px) {		
+	.cont_tarjeta_valora{
+		max-height: 260px;
+	}
+	.img_valorar{
+		max-height: 260px;
+	}
+	#imgTarjeta{
+		max-height: 260px;
+	}
+}
+
 .nota_cuerpo{
-	min-height: 5rem;
+	min-height: 13rem;
 }
 .oculto{
 	display: none;
+}
+.pie_valora{
+	height: 100%;
+}
+.tarjeta_valora{
+	width: 80%;
+}
+@media only screen and (min-width: 1024px) {
+	.tarjeta_valora{
+		width: 50%;
+	}
+}
+
+/*
+Control del tamaño del menu.
+*/
+.menu_1_ul{
+	max-width: 66%;
+}
+.menu_2_ul{
+	max-width: 90%;
+}
+@media only screen and (min-width: 646px) {
+	.menu_2_ul{
+		max-width: 34%;
+	}
 }
