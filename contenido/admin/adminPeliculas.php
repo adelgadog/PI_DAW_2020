@@ -47,7 +47,7 @@
     ?>
     
         <table class="tablaAdminPelicula">
-            <th class="tablaAdminPelicula_th" colspan=6><span>Administración de Películas</span></th>
+            <th class="tablaAdminPelicula_th" colspan=5><span>Administración de Películas</span></th>
             <tr>
                 <td>Id</td>
                 <td>Título</td>
@@ -60,7 +60,6 @@
                     ?>
                     <form action="dellPelicula.php" method="post">
                         <tr>
-                            <td><?php echo $pelis->id; ?><input type='hidden' name='id' value='<?php echo $pelis->id; ?>'></td>
                             <td><?php echo $pelis->Titulo; ?></td>
                             <td><?php echo $pelis->Duracion; ?></td>
                             <td><?php echo $pelis->Genero; ?><input type='hidden' name='datos' value='<?php echo json_encode($pelis) ?>'></td>

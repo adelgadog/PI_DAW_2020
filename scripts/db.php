@@ -1,34 +1,39 @@
 <?php
-
-    //////////////////////////////////////////////////////////////////////////
-    //
-    //  Class que contiene todas las funciones de interaccion con la BBDD        
-    //
-    //////////////////////////////////////////////////////////////////////////
-
+/**
+ * Archivo con la clase de acceso a la BBDD.
+ */ 
+    /** Accedo a Conexión.*/ 
     require_once 'conexion.php';
+
+    /**
+    * Class que contiene todas las funciones de interaccion con la BBDD.
+    * @author Andrés Delgado García <https://github.com/adelgadog/PI_DAW_2020>
+    */     
     class DB extends Conexion{
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función de ejecución de las sentencias SQL          
-        //
-        //////////////////////////////////////////////////////////////////////////
-        
+        /**
+        * Función de ejecución de las sentencias SQL.
+        *
+        * @param string $sql 
+        * @return mixed $result
+        */
+
         public static function Ejecutar($sql){
             $conn = new Conexion(); 
             $result = $conn->prepare($sql);
             $result->execute();
             $conn=null;
             return $result;
-         }
+         }  
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para obtener un usuario ya registrado de la BBDD
-        //  Retorna un objeto Usuario.
-        //
-        //////////////////////////////////////////////////////////////////////////        
+        /**
+        * Función para obtener un usuario ya registrado de la BBDD.
+        * Retorna un objeto Usuario.
+        *
+        * @param string $mail     Correo del usuario
+        * @param string $pass     Contraseña del usuario
+        * @return \object|\int $usuario / -1
+        */
 
         public static function Get_Usuario($mail, $pass){
             $sql = "SELECT * FROM usuario WHERE Mail='".$mail."' AND Psw='".$pass."'";
@@ -43,12 +48,13 @@
             }         
         }
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Esta función comprueba que el correo introducido en el registro
-        //  no se encuentre ya guardado en la BBDD.
-        //
-        //////////////////////////////////////////////////////////////////////////        
+        /**
+        * Esta función comprueba que el correo introducido en el registro 
+        * no se encuentre ya guardado en la BBDD.
+        *
+        * @param string $mail
+        * @return int 1 / -1
+        */     
 
         public static function revisa_mail($mail){
             $sql = "SELECT * FROM usuario WHERE Mail='".$mail."'";
@@ -58,12 +64,16 @@
             } else {
                 return -1;
             }         
-        }
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para registrar un nuevo usuario en la BBDD
-        //
-        //////////////////////////////////////////////////////////////////////////        
+        }  
+
+        /**
+        * Función para registrar un nuevo usuario en la BBDD.
+        *
+        * @param string $usr
+        * @param string $pass
+        * @param string $mail
+        * @return \object|\Integer $usuario / -1
+        */         
 
         public static function Set_Usuario($usr, $pass, $mail){            
             $sql = "INSERT INTO `usuario`(`Nombre`, `Mail`, `Psw`,`Admin`) VALUES ('".$usr."','".$mail."','".$pass."','0')";
@@ -76,11 +86,11 @@
             }               
         }
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para obtener la lista de peliculas almacenadas en la BBDD
-        //
-        //////////////////////////////////////////////////////////////////////////
+        /**
+        * Función para obtener la lista de peliculas almacenadas en la BBDD
+        *
+        * @return \array|\int $lista_peliculas / -1
+        */   
 
         public static function Get_Peliculas(){
             $sql = "SELECT * FROM pelicula";
@@ -94,12 +104,12 @@
             }         
         }
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para recoger las tres ultias peliculas añadidas a la BBDD
-        //  para mostrarlas en la pagina de Inicio.
-        //
-        //////////////////////////////////////////////////////////////////////////
+        /**
+        * Función para recoger las tres ultias peliculas añadidas a la BBDD
+        * para mostrarlas en la pagina de Inicio.
+        *
+        * @return \array|\int $lista_peliculas / -1
+        */ 
 
         public static function Get_Novedades(){
             $sql = "SELECT * FROM pelicula ORDER BY idPelicula DESC LIMIT 3";
@@ -112,14 +122,15 @@
                 return -1;
             }         
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para obtener las valoraciones de cada cada pelicula.
-        //  Retorna un array de objetos Peliculas.
-        //
-        //////////////////////////////////////////////////////////////////////////
-        
+
+        /**
+        * Función para obtener las valoraciones de cada cada pelicula.
+        * Retorna un array de objetos Peliculas.
+        *
+        * @param array $peliculas
+        * @return \Array|\Integer $lista_peliculas / -1
+        */        
+
         public static function Get_Valoraciones($peliculas){
             require_once 'pelicula.php';
             foreach ($peliculas as $pelicula) {
@@ -134,16 +145,17 @@
             }
             if (isset($lista_peliculas)) {   
                 return $lista_peliculas;
-            } /*else {
+            }else{
                 return -1;
-            }  */     
+            }       
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para obtener las proyecciones que se encuentran en la BBDD.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función para obtener las proyecciones que se encuentran en la BBDD.
+        *
+        * @param int $indice
+        * @return \Array|\Integer $lista_proyecciones / -1
+        */ 
 
         public static function Get_Proyeccion($indice=""){
             $sql = "SELECT * FROM proyeccion ".$indice;
@@ -157,13 +169,14 @@
                 return -1;
             }         
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para recopilar los distintos datos de cada proyección.
-        //  Retorna un array de objetos Proyeccion.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función para recopilar los distintos datos de cada proyección.
+        * Retorna un array de objetos Proyeccion.
+        *
+        * @param array $proyecciones
+        * @return \Array|\Integer $lista_proyeccion / -1
+        */ 
 
         public static function Get_Datos($proyecciones){
             require_once 'proyecciones.php';
@@ -191,16 +204,16 @@
             }
             if (isset($lista_proyeccion)) {   
                 return $lista_proyeccion;
-            } /*else {
+            } else {
                 return -1;
-            }  */     
+            }     
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para obtener las tarifas que se encuentran en la BBDD.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función para obtener las tarifas que se encuentran en la BBDD.
+        *
+        * @return \array|\int $tarifas / -1
+        */ 
 
         public static function Get_Tarifas(){
             $sql = "SELECT * FROM tarifa";
@@ -212,12 +225,16 @@
                 return -1;
             }         
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función para registrar en la BBDD una reserva realizada por un usuario.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función para registrar en la BBDD una reserva realizada por un usuario.
+        *
+        * @param string $id
+        * @param string $peli
+        * @param int $butacas
+        * @param int $proy
+        * @return int $result
+        */ 
 
         public static function Set_Reserva($id, $peli, $butacas, $proy){   
             $usuario=json_decode($id);
@@ -232,7 +249,7 @@
             $sql = "INSERT INTO `reserva`(`idUsuario`, `idProyección`, `Butacas`) VALUES ('".$userId."','".$proyec."','".$butacas."')";
             $result = DB::Ejecutar($sql); 
             
-            // Codigo para enviar correos desde la pagina. Aun no es funcional.
+            // Codigo para enviar correos desde la pagina.
 
             if($result) {
                 $to = $usuario->mail;
@@ -257,17 +274,18 @@
             }
             return $result; 
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que devuelve la información de todas las reservas realizadas
-        //  por un usuario, asi como su valoración de la pelicula asociada 
-        //  (si la hubiera), y la fecha de la proyección que reservo.
-        //  Todo esto se ordena por fecha y se retiran las peliculas duplicadas,
-        //  para que el usuario puede asignarle una nota de valoración ó modificar
-        //  la que ya le asigno.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que devuelve la información de todas las reservas realizadas
+        * por un usuario, asi como su valoración de la pelicula asociada 
+        * (si la hubiera), y la fecha de la proyección que reservo.
+        * Todo esto se ordena por fecha y se retiran las peliculas duplicadas,
+        * para que el usuario puede asignarle una nota de valoración ó modificar
+        * la que ya le asigno.
+        *
+        * @param int $iduser
+        * @return \array|\int $valoraciones / -1
+        */ 
 
         public static function Get_Reservas($iduser){
             
@@ -306,13 +324,49 @@
                 return -1;
             }         
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Recupera la valoración asignada por un usuario a una pelicula 
-        //  concreta.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que devuelve la información de todas las reservas realizadas
+        * por un usuario, asi como su valoración de la pelicula asociada 
+        * (si la hubiera), y la fecha de la proyección que reservo.
+        * Estaran ordenadas por fecha y hora.
+        *
+        * @param int $iduser
+        * @return \array|\int $valoraciones / -1
+        */ 
+
+        public static function Get_listaReservas($iduser){
+            
+            $sql = "SELECT `reserva`.`idReserva`, `reserva`.`idUsuario`, `proyeccion`.`Fecha`, `proyeccion`.`Hora`, 
+            `pelicula`.`idPelicula`, `pelicula`.`Título`, `pelicula`.`Cartel` 
+            FROM `reserva` 
+            INNER JOIN `proyeccion` ON `reserva`.`idProyección`=`proyeccion`.`idProyeccion` 
+            INNER JOIN `pelicula` ON `proyeccion`.`idPelicula`=`pelicula`.`idPelicula`       
+            WHERE `reserva`.`idUsuario`='".$iduser."'
+            ORDER BY `proyeccion`.`Fecha`, `proyeccion`.`Hora`";
+            $result = DB::Ejecutar($sql);
+            if ($result->rowCount()>0) {    
+                require_once 'valor.php';
+                $reservas = $result->fetchAll(PDO::FETCH_ASSOC);                  
+                foreach ($reservas as $reserva) {
+                    $voto = DB::Get_Valoracion($reserva["idUsuario"], $reserva["idPelicula"]);
+                    $valoracion = new Valoracion($reserva["idReserva"], $reserva["idUsuario"], $reserva["Hora"], $reserva["idPelicula"], $reserva["Fecha"], $reserva["Título"], $reserva["Cartel"], $voto);
+                    $valoraciones[]= $valoracion;
+                }
+                return $valoraciones;
+            } else {
+                return -1;
+            }         
+        }
+
+        /**
+        * Recupera la valoración asignada por un usuario a una pelicula 
+        * concreta.
+        *
+        * @param int $usuario
+        * @param int $pelicula
+        * @return int $valor / -1
+        */ 
         
         public static function Get_Valoracion($usuario, $pelicula){
             $sql = "SELECT `Valoración` FROM `valoración` WHERE `idUsuario`='".$usuario."' AND `idPelicula`='".$pelicula."'";
@@ -324,12 +378,22 @@
                 return -1;
             }     
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Guarda en la BBDD un nuevo registro de pelicula.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Guarda en la BBDD un nuevo registro de pelicula.
+        *
+        * @param int $año
+        * @param string $titulo
+        * @param string $pais
+        * @param string $genero
+        * @param string $duracion
+        * @param string $estreno
+        * @param string $calificacion
+        * @param string $sinopsis
+        * @param string $cartel
+        * @param string $video
+        * @return int 1 / -1
+        */ 
         
         public static function SetPelicula($año, $titulo, $pais, $genero, $duracion, $estreno, $calificacion, $sinopsis, $cartel, $video){
             $sql = "INSERT INTO `pelicula`
@@ -342,12 +406,12 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Recupera todos los datos de la Tabla Salas.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Recupera todos los datos de la Tabla Salas.
+        *
+        * @return \array|\int $sala / -1
+        */ 
 
         public static function Get_Salas(){
             $sql = "SELECT * FROM sala";
@@ -359,12 +423,17 @@
                 return -1;
             }         
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Guarda en la BBDD un nuevo registro de Proyección.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Guarda en la BBDD un nuevo registro de Proyección.
+        *
+        * @param int $sala
+        * @param int $peli
+        * @param int $tarifa
+        * @param string $fecha
+        * @param string $hora
+        * @return int 1 / -1
+        */ 
 
         public static function SetProyeccion($sala, $peli, $tarifa, $fecha, $hora){
             $sql = "INSERT INTO `proyeccion`(`IdSala`, `idPelicula`, `idTipo`, `Fecha`, `Hora`)
@@ -376,12 +445,15 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Guarda en la BBDD un nuevo registro de Tarífa.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Guarda en la BBDD un nuevo registro de Tarífa.
+        *
+        * @param string $def
+        * @param string $desc
+        * @param float $precio
+        * @return int 1 / -1
+        */ 
 
         public static function SetTarifa($def, $desc, $precio){
             $sql = "INSERT INTO `tarifa`(`Definicion`, `Descripcion`, `Precio`)
@@ -393,25 +465,26 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que elimina de la BBDD un registro de pelicula. 
-        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
-        //  los demas registros deben ser borrados antes de borar de la propia
-        //  tabla peliculas. Estas tablas asociadas son: Valoración, Reserva y
-        //  Proyección. Una vez se han borrado todas las referencias a una
-        //  pelicula, esta puede ser borrada de la tabla Peliculas.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que elimina de la BBDD un registro de pelicula. 
+        * Al tener esta tabla varias asociaciones a traves de su PK, todas
+        * los demas registros deben ser borrados antes de borar de la propia
+        * tabla peliculas. Estas tablas asociadas son: Valoración, Reserva y
+        * Proyección. Una vez se han borrado todas las referencias a una
+        * pelicula, esta puede ser borrada de la tabla Peliculas.
+        *
+        * @param int $id
+        * @return int 1 / -1
+        */ 
 
         public static function Dell_Pelicula($id){
             $sql1 = "DELETE FROM `valoración` WHERE `idPelicula`='".$id."'";
-            $result1 = DB::Ejecutar($sql);  
-            $sql2 = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idPelicula`='".$id."')";
-            $result2 = DB::Ejecutar($sql);  
+            $result1 = DB::Ejecutar($sql1);  
+            $sql2 = "DELETE FROM `reserva` WHERE `idProyección` IN (SELECT `idProyeccion` FROM `proyeccion` WHERE `idPelicula`='".$id."')";
+            $result2 = DB::Ejecutar($sql2);  
             $sql3 = "DELETE FROM `proyeccion` WHERE `idPelicula`='".$id."'";
-            $result3 = DB::Ejecutar($sql);  
+            $result3 = DB::Ejecutar($sql3);  
             $sql = "DELETE FROM `pelicula` WHERE `idPelicula`='".$id."'";
             $result = DB::Ejecutar($sql);  
             if ($result) {  
@@ -420,12 +493,23 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Actualiza la informacion de una pelicula en la Tabla Peliculas.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Actualiza la informacion de una pelicula en la Tabla Peliculas.
+        *
+        * @param int $id
+        * @param int $año
+        * @param string $titulo
+        * @param string $pais
+        * @param string $genero
+        * @param string $duracion
+        * @param string $estreno
+        * @param string $calificacion
+        * @param string $sinopsis
+        * @param string $cartel
+        * @param string $video
+        * @return int 1 / -1
+        */ 
         
         public static function updatePelicula($id, $año, $titulo, $pais, $genero, $duracion, $estreno, $calificacion, $sinopsis, $cartel, $video){
             $sql ="UPDATE `pelicula` SET 
@@ -440,23 +524,24 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que elimina de la BBDD un registro de tarifa. 
-        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
-        //  los demas registros deben ser borrados antes de borar de la propia
-        //  tabla Tarifas. Estas tablas asociadas son: Reserva y
-        //  Proyección. Una vez se han borrado todas las referencias a una
-        //  tarifa, esta puede ser borrada de la tabla Tarifas.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que elimina de la BBDD un registro de tarifa. 
+        * Al tener esta tabla varias asociaciones a traves de su PK, todas
+        * los demas registros deben ser borrados antes de borar de la propia
+        * tabla Tarifas. Estas tablas asociadas son: Reserva y
+        * Proyección. Una vez se han borrado todas las referencias a una
+        * tarifa, esta puede ser borrada de la tabla Tarifas.
+        *
+        * @param int $id
+        * @return int 1 / -1
+        */ 
 
         public static function Dell_Tarifa($id){
             $sql1 = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idTipo`='".$id."')";
-            $result1 = DB::Ejecutar($sql);  
+            $result1 = DB::Ejecutar($sql1);  
             $sql2 = "DELETE FROM `proyeccion` WHERE `idTipo`='".$id."'";
-            $result2 = DB::Ejecutar($sql);  
+            $result2 = DB::Ejecutar($sql2);  
             $sql = "DELETE FROM `tarifa` WHERE `idTipo`='".$id."'";
             $result = DB::Ejecutar($sql);  
             if ($result) {  
@@ -465,12 +550,16 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Actualiza la informacion de una tarífa en la Tabla Tarífas.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Actualiza la informacion de una tarífa en la Tabla Tarífas.
+        *
+        * @param int $id
+        * @param string $def
+        * @param string $desc
+        * @param float $precio
+        * @return int 1 / -1
+        */ 
         
         public static function updateTarifa($id, $def, $desc, $precio){
             $sql ="UPDATE `tarifa` SET 
@@ -483,21 +572,22 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que elimina de la BBDD un registro de proyección. 
-        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
-        //  los demas registros deben ser borrados antes de borar de la propia
-        //  tabla Proyecciones. Estas tabla asociada es: Reserva. 
-        //  Una vez se ha borrado esta referencia a una
-        //  proyección, esta puede ser borrada de la tabla Proyecciones.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que elimina de la BBDD un registro de proyección. 
+        * Al tener esta tabla varias asociaciones a traves de su PK, todas
+        * los demas registros deben ser borrados antes de borar de la propia
+        * tabla Proyecciones. Estas tabla asociada es: Reserva. 
+        * Una vez se ha borrado esta referencia a una
+        * proyección, esta puede ser borrada de la tabla Proyecciones.
+        *
+        * @param int $id
+        * @return int 1 / -1
+        */ 
 
         public static function Dell_Proyeccion($id){         
             $sql1 = "DELETE FROM `reserva` WHERE `idProyección`='".$id."'";
-            $result1 = DB::Ejecutar($sql);  
+            $result1 = DB::Ejecutar($sql1);  
             $sql = "DELETE FROM `proyeccion` WHERE `idProyeccion`='".$id."'";
             $result = DB::Ejecutar($sql);   
             if ($result) {  
@@ -506,12 +596,18 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Actualiza la informacion de una proyección en la Tabla Proyecciones.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Actualiza la informacion de una proyección en la Tabla Proyecciones.
+        *
+        * @param int $id
+        * @param int $sala
+        * @param int $peli
+        * @param int $tarifa
+        * @param string $fecha
+        * @param string $hora
+        * @return int 1 / -1
+        */ 
         
         public static function updateProyeccion($id, $sala, $peli, $tarifa, $fecha, $hora){
             $sql ="UPDATE `proyeccion` SET 
@@ -523,13 +619,13 @@
             } else {
                 return -1;
             }   
-        }
+        } 
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que devuelve todos los datos de la tabla Usuarios.  
-        //
-        //////////////////////////////////////////////////////////////////////////        
+        /**
+        * Función que devuelve todos los datos de la tabla Usuarios.
+        *
+        * @return \array|\int $usuario / -1
+        */      
 
         public static function Get_Usuarios(){
             $sql = "SELECT * FROM usuario";
@@ -544,17 +640,18 @@
                 return -1;
             }         
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que elimina de la BBDD un registro de usuario. 
-        //  Al tener esta tabla varias asociaciones a traves de su PK, todas
-        //  los demas registros deben ser borrados antes de borar de la propia
-        //  tabla Usuarios. Estas tabla asociada es: Valoraciones y Reservas. 
-        //  Una vez se ha borrado estas referencias a un
-        //  usuario, este puede ser borrado de la tabla Usuarios.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que elimina de la BBDD un registro de usuario. 
+        * Al tener esta tabla varias asociaciones a traves de su PK, todas
+        * los demas registros deben ser borrados antes de borar de la propia
+        * tabla Usuarios. Estas tabla asociada es: Valoraciones y Reservas. 
+        * Una vez se ha borrado estas referencias a un
+        * usuario, este puede ser borrado de la tabla Usuarios.
+        *
+        * @param int $id
+        * @return int 1 / -1
+        */ 
         
         public static function Dell_Usuario($id){
             $sql = "DELETE FROM `usuario` WHERE `idCliente`='".$id."'";
@@ -562,27 +659,21 @@
             $reserva= DB::Dell_Reservas($id);
             if ($nota==1 && $reserva==1) {
                 $result = DB::Ejecutar($sql); 
-            } else {
-                if ($nota==1) {
-                    return "Nota no es";
-                } else {
-                    
-                    return "reserva no es";
-                }                
-            }             
+            }            
             if ($result) {  
                 return 1; 
             } else {
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que elimina todos los registros asociados con un usuario
-        //  de la tabla Reservas.  
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que elimina todos los registros asociados con un usuario
+        * de la tabla Reservas.  
+        *
+        * @param int $id
+        * @return int 1 / -1
+        */ 
         
         public static function Dell_Reservas($id){            
             $sql1 = "SELECT * FROM `reserva` WHERE `idUsuario`='".$id."'";
@@ -599,13 +690,14 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que elimina todos los registros asociados con un usuario
-        //  de la tabla Valoración.  
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que elimina todos los registros asociados con un usuario
+        * de la tabla Valoración. 
+        *
+        * @param int $id
+        * @return int 1 / -1
+        */ 
         
         public static function Dell_Nota($id){
             $sql1 = "SELECT * FROM `valoración` WHERE `idUsuario`='".$id."'";
@@ -622,16 +714,20 @@
                 return -1;
             }   
         }
+
+        /**
+        * Función que modifica cualquier campo de la tabla Usuario a excepción
+        * del campo contraseña.
+        *
+        * @param int $id
+        * @param string $nombre
+        * @param string $mail
+        * @param string $admin
+        * @return int 1 / -1
+        */ 
         
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que modifica el campo Admin de un usuario en la tabla Usuario,
-        //   para otorgar o retirar acceso de Administrador a la web.
-        //
-        //////////////////////////////////////////////////////////////////////////
-        
-        public static function mod_Admin($id, $admin){
-            $sql ="UPDATE `usuario` SET `Admin`='".$admin."' WHERE `idCliente`='".$id."'";
+        public static function mod_Usuario($id, $nombre, $mail, $admin){
+            $sql ="UPDATE `usuario` SET `Nombre`='".$nombre."',`Mail`='".$mail."', `Admin`='".$admin."' WHERE `idCliente`='".$id."'";
             $result = DB::Ejecutar($sql);  
             if ($result) {  
                 return 1; 
@@ -639,13 +735,16 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que actualiza la nota ya asignada por un usuario concreto a
-        //  una pelicula concreta.
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que actualiza la nota ya asignada por un usuario concreto a
+        * una pelicula concreta.
+        *
+        * @param int $usr
+        * @param int $peli
+        * @param float $nota
+        * @return int 1 / -1
+        */ 
         
         public static function Up_Nota($usr, $peli, $nota){
             $sql ="UPDATE `valoración` SET `Valoración`='".$nota."' WHERE `idUsuario`='".$usr."' AND `idPelicula`='".$peli."'";
@@ -656,12 +755,15 @@
                 return -1;
             }   
         }
-        
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  Función que asigna una nota a una pelicula concreta por un usuario concreto
-        //
-        //////////////////////////////////////////////////////////////////////////
+
+        /**
+        * Función que asigna una nota a una pelicula concreta por un usuario concreto.
+        *
+        * @param int $usr
+        * @param int $peli
+        * @param float $nota
+        * @return int 1 / -1
+        */ 
         
         public static function Set_Nota($usr, $peli, $nota){
             $sql ="INSERT INTO `valoración`(`idUsuario`, `idPelicula`, `Valoración`) VALUES ('".$usr."','".$peli."','".$nota."')";
@@ -673,11 +775,10 @@
             }   
         }
 
-        //////////////////////////////////////////////////////////////////////////
-        //
-        //  ¡¡¡ SCRIPT END !!!
-        //
-        //////////////////////////////////////////////////////////////////////////
+        /**
+        * ¡¡¡ SCRIPT END !!!
+        *
+        */ 
 
     }
 ?>

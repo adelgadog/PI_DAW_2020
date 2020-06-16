@@ -1,0 +1,68 @@
+<?php
+/**
+ * Archivo de clase Pelicula.
+ */ 
+
+    /**
+     * Class que permite almacenar toda la informacion de una pelicula.
+     * @author Andrés Delgado García <https://github.com/adelgadog/PI_DAW_2020>
+     */  
+    class Pelicula {       
+        
+        /** @var int $id  Id de la pelicula*/
+        public $id;
+        /** @var string $Titulo  Titulo de la pelicula*/
+        public $Titulo;
+        /**  @var string $Pais Pais de la pelicula*/
+        public $Pais;
+        /** @var string $Genero  Genero de la pelicula*/
+        public $Genero;
+        /** @var string $Año  Año de la pelicula*/
+        public $Año;
+        /** @var string $Duracion  Duracion de la pelicula*/
+        public $Duracion;
+        /** @var string $Estreno  Estreno de la pelicula*/
+        public $Estreno;
+        /** @var string $Calificacion  Calificacion de la pelicula*/
+        public $Calificacion;
+        /** @var string $Sinopsis  Sinopsis de la pelicula*/
+        public $Sinopsis;
+        /** @var float $Valoracion  Valoracion de la pelicula*/
+        public $Valoracion;
+        /** @var string $Cartel  Cartel de la pelicula*/
+        public $Cartel;
+        /** @var string $Trailer  Trailer de la pelicula*/
+        public $Trailer;
+
+        /**
+        * Constructor sobrecagado de la clase.
+        *
+        * @param int $id     Id de la pelicula
+        * @param string $titulo     Título de la pelicula
+        * @param string $pais     Pais de la pelicula
+        * @param int $genero     Genero de la pelicula
+        * @param string $año     Año de rodaje de la pelicula
+        * @param string $duracion     Duración de la pelicula
+        * @param string $estreno     Fecha de estreno de la pelicula
+        * @param string $calificacion     Calificación de la pelicula
+        * @param string $sinopsis     Sinopsis de la pelicula
+        * @param string $valoracion     Nota media de la pelicula
+        * @param string $cartel     Link al cartel de la pelicula
+        * @param string $trailer     Link al trailer de la pelicula
+        */
+        public function __construct($id, $titulo, $pais, $genero, $año, $duracion, $estreno, $calificacion, $sinopsis, $valoracion, $cartel, $trailer){
+            $this->id = $id;
+            $this->Titulo = $titulo;
+            $this->Pais = $pais;
+            $this->Genero = $genero;
+            $this->Año = $año;
+            $this->Duracion = $duracion;
+            $this->Estreno = $estreno;
+            $this->Calificacion = $calificacion;
+            $this->Sinopsis = $sinopsis;
+            $this->Valoracion = $valoracion;
+            $this->Cartel = $cartel;
+            $this->Trailer = $trailer;
+        }
+    }        
+?>

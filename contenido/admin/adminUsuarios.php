@@ -47,9 +47,8 @@
     ?>
     
         <table class="tablaAdminPelicula">
-            <th class="tablaAdminPelicula_th" colspan=6><span>Administración de Usuarios</span></th>
+            <th class="tablaAdminPelicula_th" colspan=5><span>Administración de Usuarios</span></th>
             <tr>
-                <td>Id</td>
                 <td>Nombre</td>
                 <td>Mail</td>
                 <td>Admin</td>
@@ -60,11 +59,10 @@
                     ?>
                     <form action="modUsuario.php" method="post">
                         <tr>
-                            <td><?php echo $usuario->id; ?><input type='hidden' name='id' value='<?php echo $usuario->id; ?>'></td>
-                            <td><?php echo $usuario->nombre; ?></td>
+                            <td><?php echo $usuario->nombre; ?><input type='hidden' name='id' value='<?php echo $usuario->id; ?>'></td>
                             <td><?php echo $usuario->mail; ?></td>
-                            <td><?php echo $usuario->admin; ?><input type='hidden' name='admin' value='<?php echo $usuario->admin; ?>'></td>
-                            <td><input type='submit' name='modificar' value='Modificar Admin'></td>
+                            <td><?php echo $usuario->admin; ?><input type='hidden' name='datos' value='<?php echo json_encode($usuario) ?>'></td>
+                            <td><input type='submit' name='modificar' value='Modificar'></td>
                             <td><input type='submit' name='borrar' value='Borrar'></td>
                         </tr>
                     </form>

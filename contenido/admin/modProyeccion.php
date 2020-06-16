@@ -10,57 +10,79 @@
     }else{        
         header("Location: ../../index.php");
     }
-    if (empty($_POST["borrar"]) && empty($_POST["modificar"]) ) {
-        header("Location: adminProyeccion.php?vacio=1");      
-    } else {
-        if (!empty($_POST["borrar"])) {
-            require_once '../../scripts/db.php';
-            $insert = DB::Dell_Proyeccion($_POST["id"]);
-            if ($insert==-1) {
-               header( "Location: adminProyeccion.php?accion=-1");
-            } else {
-               header( "Location: adminProyeccion.php?accion=borrado");
-            }    
-        } else {
-            $proyeccion= json_decode($_POST['datos']);
-            require_once '../../scripts/db.php';
-            $tarifas = DB::Get_Tarifas();    
-        
-            $peliculas = DB::Get_Peliculas();
-        
-            $salas = DB::Get_Salas();
-            ?>
-
-
+?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Actualizar Proyección</title>
-    <link rel="stylesheet" href="../../styles/styleAdmin.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script>
-        function goBack() {
-            window.location.replace("adminProyeccion.php");
-        }
-    </script>
-</head>
-<body class="fondo">  
-    <?php
-        if (!empty($_GET["accion"])) {
-            $accion=$_GET["accion"];
-            if ($accion=="-1") {
-                ?> <h3>Ha surguido un problema y no se ha podido realizar la operación</h3> <?php
-            } else {                
-                ?> <h3>Operación realizada con exito.</h3> <?php
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin: Actualizar Proyección</title>
+        <link rel="stylesheet" href="../../styles/styleAdmin.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script>
+            function goBack() {
+                window.location.replace("adminProyeccion.php");
             }
-            
-        } 
-    ?>
+        </script>
+    </head>
+    <body class="fondo">  
+<?php
+
+    if (empty($_POST["borrar"]) && empty($_POST["modificar"]) ) {
+        header("Location: adminProyeccion.php?vacio=1");      
+    } else {      
+
+        $proyeccion= json_decode($_POST['datos']);
+        require_once '../../scripts/db.php';
+        $tarifas = DB::Get_Tarifas(); 
+        $peliculas = DB::Get_Peliculas();        
+        $salas = DB::Get_Salas();
+
+        if (!empty($_POST["borrar"])) {    
+?>
+        <form action="upProyeccion.php" method="post">
+            <table class="tablaAdminPelicula">
+                <th class="tablaAdminPelicula_th" colspan=2><span>Confirmación de borrado de Proyección</span></th>
+                <tr>
+                    <td colspan=2><span>Borrar Proyección:</span></td>                            
+                </tr>
+                <tr>
+                    <td><span>Título:</span></td>
+                    <td><span>
+                            <?php
+                                foreach ($peliculas as $pelicula) {
+                                       if($pelicula->id==$proyeccion->idPelicula){echo $pelicula->Titulo;} 
+                                }
+                            ?></span>
+                    </td>        
+                </tr>
+                <tr>
+                    <td><span>Fecha:</span></td>
+                    <td><span><?php echo $proyeccion->Fecha; ?></span></td>        
+                </tr>
+                <tr>
+                    <td><span>Hora:</span></td>
+                    <td><span><?php echo $proyeccion->Hora; ?></span></td>        
+                </tr>
+                <tr>
+                    <td><span>Sala:</span></td>
+                    <td>
+                    <span><?php echo $proyeccion->Sala; ?></span>     
+                    <input type="hidden" id="id" name="id"  value='<?php echo $proyeccion->id; ?>'>                      
+                    </td>        
+                </tr>
+                <tr>
+                    <td><button onclick="goBack()">No</button></td>
+                    <td><input type="submit" name="dellProyeccion" id="dellProyeccion" class="btn btn-warning" value="Borrar"></td>        
+                </tr>                   
+            </table>
+        </form>
+<?php  
+        } else {
+?>
         <form action="upProyeccion.php" method="post">
             <table class="tablaAdminPelicula">
                 <th class="tablaAdminPelicula_th" colspan=2>Formulario de Modificación de Proyecciones</th>
@@ -115,10 +137,9 @@
                 </tr>
             </table>
         </form>
-   
-</body>
-</html>
 <?php
         }
     }    
-?>
+?>   
+</body>
+</html>

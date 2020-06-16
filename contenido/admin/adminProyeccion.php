@@ -13,6 +13,8 @@
     if(!isset($array_Pelicula)) {
         require_once '../../scripts/funciones.php';
         $array_Proyecciones=Get_Proyeccion();
+        $array_Peliculas=Get_Peliculas();
+
     } 
 
 ?>
@@ -47,11 +49,10 @@
     ?>
     
         <table class="tablaAdminPelicula">
-            <th class="tablaAdminPelicula_th" colspan=8><span>Administración de Proyecciones</span></th>
+            <th class="tablaAdminPelicula_th" colspan=7><span>Administración de Proyecciones</span></th>
             <tr>
-                <td>Id</td>
                 <td>Sala</td>
-                <td>Id Pelicula</td>
+                <td>Pelicula</td>
                 <td>Fecha</td>
                 <td>Hora</td>
                 <td>Tarifa</td>
@@ -62,9 +63,8 @@
                     ?>
                     <form action="modProyeccion.php" method="post">
                         <tr>
-                            <td><?php echo $proyeccion->id; ?><input type='hidden' name='id' value='<?php echo $proyeccion->id; ?>'></td>
                             <td><?php echo $proyeccion->Sala; ?></td>
-                            <td><?php echo $proyeccion->idPelicula; ?></td>
+                            <td><?php foreach ($array_Peliculas as $pelicula) {if($proyeccion->idPelicula==$pelicula->id){echo $pelicula->Titulo;}}?></td>
                             <td><?php echo $proyeccion->Fecha; ?></td>
                             <td><?php echo $proyeccion->Hora; ?></td>
                             <td><?php echo $proyeccion->Definicion_Tarifa; ?><input type='hidden' name='datos' value='<?php echo json_encode($proyeccion) ?>'></td>

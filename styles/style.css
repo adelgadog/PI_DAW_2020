@@ -246,7 +246,7 @@
 Control del tamaño del menu.
 */
 .menu_1_ul{
-	max-width: 66%;
+	max-width: 60%;
 }
 .menu_2_ul{
 	max-width: 90%;
@@ -255,4 +255,19 @@ Control del tamaño del menu.
 	.menu_2_ul{
 		max-width: 34%;
 	}
+}
+
+.titu_reservas{
+	width: 100%;
+}
+
+.tarje_reservadas{
+	width: 100%;
+}
+.usr_reservas:link{
+    color:white;
+}
+
+.usr_reservas:visited {
+    color:white;
 }

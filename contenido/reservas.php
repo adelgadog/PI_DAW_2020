@@ -24,10 +24,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="favicon/ico" href="../img/favicon2.ico">
     <link rel="stylesheet" href="../styles/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="../scripts/script_Reserva.js"></script>  
     <script src="../scripts/script.js"></script>    
   
@@ -89,11 +89,11 @@
                             <?php
                             }else{                    
                             ?>
-                                <li class="nav-item">
-                                    <span class="text-white mr-3">Hola, <?php echo $array_User->nombre;?> </span>
-                               
-                                    <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
-                                </li> 
+                            <li class="nav-item">
+                                <span class="text-white mr-3">Hola, <a href="usuario.php" class="usr_reservas"><?php echo $array_User->nombre;?></a></span>
+                           
+                                <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
+                            </li> 
                         <?php  
                         }
                         ?>

@@ -53,7 +53,7 @@
         </tr>
         <tr>
             <td><span>Precio:</span></td>
-            <td><input type="text" id="precio" name="precio"  placeholder=""></td>        
+            <td><input type="number" step="0.1" id="precio" name="precio"  placeholder=""></td>        
         </tr>
         <tr>
             <td><button onclick="goBack()">Volver</button></td>

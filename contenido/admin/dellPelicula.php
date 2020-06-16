@@ -10,22 +10,7 @@
     }else{        
         header("Location: ../../index.php");
     }
-    if (empty($_POST["borrar"]) && empty($_POST["modificar"]) ) {
-        header("Location: adminPeliculas.php?vacio=1");      
-    } else {
-        if (!empty($_POST["borrar"])) {
-            require_once '../../scripts/db.php';
-            $insert = DB::Dell_Pelicula($_POST["id"]);
-            if ($insert==-1) {
-            header( "Location: adminPeliculas.php?accion=-1");
-            } else {
-                header( "Location: adminPeliculas.php?accion=1");
-            }    
-        } else {
-            $pelicula= json_decode($_POST['datos']);
-
-            ?>
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,18 +28,42 @@
         }
     </script>
 </head>
-<body class="fondo">  
-    <?php
-        if (!empty($_GET["accion"])) {
-            $accion=$_GET["accion"];
-            if ($accion=="-1") {
-                ?> <h3>Ha surguido un problema y no se ha podido realizar la operación</h3> <?php
-            } else {                
-                ?> <h3>Operación realizada con exito.</h3> <?php
-            }
-            
-        } 
-    ?>
+<body class="fondo"> 
+<?php
+    if (empty($_POST["borrar"]) && empty($_POST["modificar"]) ) {
+        header("Location: adminPeliculas.php?vacio=1");      
+    } else {
+        if (!empty($_POST["borrar"])) {
+            $pelicula= json_decode($_POST['datos']);
+            ?>
+        <form action="upPelicula.php" method="post">
+            <table class="tablaAdminPelicula">
+                <th class="tablaAdminPelicula_th" colspan=2><span>Confirmación de borrado de Usuario</span></th>
+                <tr>
+                    <td colspan=2><span>Borrar Usuario:</span></td>
+                         
+                </tr>
+                <tr>
+                    <td><span>Título:</span></td>
+                    <td><span><?php echo $pelicula->Titulo; ?></span></td>        
+                </tr>
+                <tr>
+                    <td><span>Año:</span></td>
+                    <td>
+                    <span><?php echo $pelicula->Año; ?></span>     
+                    <input type="hidden" id="id" name="id"  value='<?php echo $pelicula->id; ?>'>                      
+                    </td>        
+                </tr>
+                <tr>
+                    <td><button onclick="goBack()">No</button></td>
+                    <td><input type="submit" name="dellPelicula" id="dellPelicula" class="btn btn-warning" value="Borrar"></td>        
+                </tr>                   
+            </table>
+        </form>
+        <?php
+        } else {
+            $pelicula= json_decode($_POST['datos']);
+            ?>
     <form action="upPelicula.php" method="post">
         <table class="tablaAdminPelicula">
             <th class="tablaAdminPelicula_th" colspan=2><span>Formulario de Actualización de Película</span></th>
@@ -105,12 +114,9 @@
             </tr>
         </table>
     </form>
-   
-</body>
-</html>
-
-
-            <?php
+<?php
         }
     }    
-?>
+?>   
+</body>
+</html>

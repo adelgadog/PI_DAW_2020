@@ -79,11 +79,11 @@
                             <?php
                             }else{                    
                             ?>
-                                <li class="nav-item">
-                                    <span class="text-white mr-3">Hola, <?php echo $array_User->nombre;?> </span>
-                               
-                                    <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
-                                </li> 
+                            <li class="nav-item">
+                                <span class="text-white mr-3">Hola, <a href="usuario.php" class="usr_reservas"><?php echo $array_User->nombre;?></a></span>
+                           
+                                <input class="btn btn-warning btn-sm" id="salir" type="button" value="Salir">
+                            </li> 
                         <?php  
                         }
                         ?>
