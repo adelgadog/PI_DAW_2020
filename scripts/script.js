@@ -10,7 +10,6 @@ $(document).ready(function () {
    $(".b_login").click(function(){  
         if ( $("#correo_L").val()=='' || $("#password_L").val()=='') {
             $(".correo_vacio").text("Necesita rellenar todos los campos.");
-            //alert("Necesita rellenar todos los campos.");
         } else {           
             Chequear($("#correo_L").val(), $("#password_L").val(), $('#remember').prop('checked'));            
         }
@@ -25,11 +24,9 @@ $(document).ready(function () {
     $("#b_registro").click(function(){  
         if ($("#Pass_R").val().length<8) {
             $(".psw_corta").text("La contraseña debe ser mayor de 8 caracteres.");
-            //alert("La contraseña debe ser mayor de 8 caracteres.");
         } else if ($("#Pass_R").val()!=$("#Pass_R2").val()){          
             $(".psw_corta").text("");
             $(".psw_repe").text("Las contraseñas deben coincidir.");
-            //alert("Las contraseñas deben coincidir.");
         } else {
             Chequear_R($("#Usuario_R").val(), $("#Pass_R").val(), $("#Mail_R").val());                   
         }
@@ -45,7 +42,6 @@ $(document).ready(function () {
     //////////////////////////////////////////////////////////////////////////
 
    function Chequear_R(User, Pass, Mail){  
-        //alert("vamos");
         $.ajax({
             type: "post",
             url: "../scripts/funciones.php",
@@ -54,7 +50,6 @@ $(document).ready(function () {
                 console.log("nope_Registro_1");
             },
             success: function (jsonStr) {
-                //alert("entra");
                 console.log("entra");
                 console.log(jsonStr);
                 let json = JSON.parse(jsonStr);
@@ -63,7 +58,6 @@ $(document).ready(function () {
                     $(".psw_corta").text("");
                     $(".psw_repe").text("");
                     $(".correo_repe").text("Ese E-Mail ya esta registrado.");
-                    //alert("Ese E-Mail ya esta registrado."); 
                 }else{
                     console.log("cierto");
                     Registrar(User, Pass, Mail);   
@@ -100,7 +94,6 @@ $(document).ready(function () {
             },
             success: function (jsonStr) {
                 let json = JSON.parse(jsonStr);
-                //console.log(json);
                 if (tiempo) {
                     let d = new Date();
                     d.setTime(d.getTime() + 2592000000);
@@ -140,10 +133,8 @@ $(document).ready(function () {
                 var expira = "; expires="+d.toUTCString();
                 let json = JSON.parse(jsonStr);       
                 let cookie="usuario_cine="+JSON.stringify(json);
-                //alert(cookie);
                 document.cookie ="usuario_cine="+JSON.stringify(json);
-                window.location.reload();
-                                
+                window.location.reload();                                
             }
         }); 
     }
@@ -185,8 +176,7 @@ $(document).ready(function () {
             error(xhr,status,error){console.log("nope");
             },
             success: function (jsonStr) {
-                let json = JSON.parse(jsonStr);
-                //console.log(json);                  
+                let json = JSON.parse(jsonStr);   
                 document.cookie ="proyecciones="+JSON.stringify(json);             
             }
         }); 

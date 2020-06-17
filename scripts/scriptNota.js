@@ -30,7 +30,6 @@ $(document).ready(function () {
             $("#anuncio_"+this.id).addClass("oculto");
             $("#modificar_"+this.id).removeClass("oculto");
             document.getElementById("muestra_nota_"+this.id).innerHTML=this.value;
-            //console.log("Pelicula: "+this.name+"Valor: "+this.value);
         };
     });
 

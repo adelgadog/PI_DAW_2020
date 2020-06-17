@@ -145,7 +145,7 @@ $(document).ready(function() {
                     elementoListaH.attr("value", peliF.id);
                     elementoListaH.attr("class", "opcionFecha");
                     elementoListaH.attr("id", "opcionFecha");
-                    elementoListaH.text(peliF.Hora);
+                    elementoListaH.text(peliF.Hora.slice(0,-3));
                     $("#lista_horarios").append(elementoListaH);
                 });  // Fin For
                 $("#lista_horarios").attr("value", null); 
@@ -285,9 +285,6 @@ $(document).ready(function() {
                                 let Proyec =   JSON.stringify(proyecciones.find(proy => proy.id==$("#lista_horarios").val()));
                                 let pelicula = peliculas.find(peli => peli.id==$("#lista_Peliculas").val());
                                 let titulo= pelicula.Titulo;
-                                //console.log(usuario);
-                                //console.log("Butacas: "+$("#cantidad").val()+"Proyeccion: "+$("#lista_horarios").val());
-                                //console.log($("#lista_horarios").val()[0]);
                                $.ajax({
                                     type: "post",
                                     url: "../scripts/funciones.php",
@@ -295,9 +292,7 @@ $(document).ready(function() {
                                     error(xhr,status,error){console.log("nope");
                                     },
                                     success: function (data) {
-                                       //alert(data);
-                                       // console.log(data)
-                                       window.location.href="../contenido/valoracion.php";
+                                       window.location.href="../contenido/usuario.php";
                                     }
                                 });   
                             });  
@@ -352,7 +347,6 @@ $(document).ready(function() {
     });
 
     $(".peliculaSig").click(function(){ // Boton Siguiente Panel Películas
-        //alert($("#lista_Peliculas").val());
         if ($("#lista_Peliculas").val()!=null) {            
             $(".link_pelicula").toggleClass("active show");
             $(".link_sesion").toggleClass("active show");

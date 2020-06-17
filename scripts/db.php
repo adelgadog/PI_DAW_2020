@@ -538,7 +538,7 @@
         */ 
 
         public static function Dell_Tarifa($id){
-            $sql1 = "DELETE FROM `reserva` WHERE `idProyección`=(SELECT `idProyeccion` FROM `proyeccion` WHERE `idTipo`='".$id."')";
+            $sql1 = "DELETE FROM `reserva` WHERE `idProyección` IN (SELECT `idProyeccion` FROM `proyeccion` WHERE `idTipo`='".$id."')";
             $result1 = DB::Ejecutar($sql1);  
             $sql2 = "DELETE FROM `proyeccion` WHERE `idTipo`='".$id."'";
             $result2 = DB::Ejecutar($sql2);  

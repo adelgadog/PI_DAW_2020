@@ -14,11 +14,10 @@
                     <div class="card">
                         <div class="mb-3 mt-2 mr-2 d-flex justify-content-end">
                             <div class="contenedor_nota ">
+                            <?php 
+                            if ($pelis->Valoracion!=null) { ?>
                                 <img class="card-img-top" src="../img/<?php
                                     switch($pelis->Valoracion) {
-                                        case ($pelis->Valoracion===null): 
-                                            echo "NA";
-                                        break;
                                         case ($pelis->Valoracion>7&&$pelis->Valoracion<=10): 
                                             echo "verde.png";
                                         break;
@@ -29,7 +28,8 @@
                                             echo "rojo.png";
                                         break;  
                                     }
-                                ?>" id="nota">
+                                ?>" id="nota"><?php } ?>
+                                
                                 <h3 class="n_nota justify-content-end"><?php echo round($pelis->Valoracion, 1);?></h3>
                             </div>       
                         </div>             

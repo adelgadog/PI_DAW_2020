@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../scripts/script.js"></script>    
-    <title>Cine</title>
+    <title>Cines La Claqueta Rota</title>
 </head>
 <body>
 
@@ -100,12 +100,10 @@
                     </div>                    
                 </div>
 
-                <div class="row mt-5 mb-1 ">
-                    
+                <div class="row mt-5 mb-1 ">                    
                     <div class="col-lg-3 offset-1">
                         <address>
-                            <span>E-Mail: <a href="mailto:cines.la.claqueta.rota@gmail.com">cines.la.claqueta.rota@gmail.com</a> </span><br>
-                            
+                            <span>E-Mail: <a href="mailto:cines.la.claqueta.rota@gmail.com">cines.la.claqueta.rota@gmail.com</a> </span><br>                            
                             <abbr>Teléfono: </abbr><span>659284353</span> <br>
                         </address>
                     </div>
@@ -123,11 +121,12 @@
                                 <label for="comentUser">Comentario:</label>
                                 <textarea class="form-control" id="comentUser" name="contactoMensaje" required rows="3"></textarea>
                             </div>
-                            <button type="submit" class="btn mr-5 btn-primary">Enviar</button> <?php if ($_GET["enviado"]){echo "<span>Mensaje enviado.</span>";} ?>
+                            <button type="submit" class="btn mr-5 btn-primary">Enviar</button> 
+                            <?php if ($_GET["enviado"]){echo "<span>Mensaje enviado.</span>";} ?>
                         </form>
                     </div>
-
                 </div>
+
             </div>
         </section>
 

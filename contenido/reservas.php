@@ -31,7 +31,7 @@
     <script src="../scripts/script_Reserva.js"></script>  
     <script src="../scripts/script.js"></script>    
   
-    <title>Cine</title>
+    <title>Cines La Claqueta Rota</title>
 </head>
 <body>
 

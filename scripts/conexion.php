@@ -16,7 +16,6 @@
       /** @var string $pass Contraseña de acceso a la BBDD*/
       private $pass = "adminCine"; 
 
-
       /**
        * Función constructor que realiza la conexión mediante la clase de la que hereda, PDO.
       *

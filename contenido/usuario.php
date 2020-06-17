@@ -30,7 +30,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="../scripts/script.js"></script>    
     <script src="../scripts/scriptNota.js"></script>    
-    <title>Cine</title>
+    <title>Cines La Claqueta Rota</title>
 </head>
 <body>
 
@@ -120,7 +120,7 @@
                                         </div>
                                         <div class="card-body ml-2 nota_cuerpo">
                                             <h5 class="card-subtitle mb-3">Fecha: <?php echo $reserva->fecha; ?>
-                                            <h5 class="card-subtitle mb-3">Hora: <?php echo $reserva->hora; ?>
+                                            <h5 class="card-subtitle mb-3">Hora: <?php echo date("G:i", strtotime($reserva->hora)); ?>
                                             <div class="container mt-4 ml-md-3">
                                                 <p class="card-text ">Valorada: <?php if($reserva->nota!=-1){ echo "Sí";}else{echo "No";} ?></p>
                                             </div>
